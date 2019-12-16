@@ -1,0 +1,35 @@
+{
+  "name": "jaa",
+  "version": "1.0.0",
+  "description": "some util functions used frequently",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c ./build/rollup.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/impeiran/jaa.git"
+  },
+  "keywords": [
+    "javascript",
+    "util",
+    "function",
+    "natural",
+    "ecmascript"
+  ],
+  "author": "impeiran",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/impeiran/jaa/issues"
+  },
+  "homepage": "https://github.com/impeiran/jaa#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "rollup": "^1.27.13",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^5.1.3"
+  }
+}
