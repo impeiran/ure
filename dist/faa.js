@@ -4,53 +4,28 @@
   (global = global || self, global.faa = factory());
 }(this, (function () { 'use strict';
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
+  /**
+   * ua信息
+   */
+  var ua = function ua() {
+    return navigator ? navigator.userAgent : null;
+  };
 
-    return obj;
+  /**
+   * Boolean 返回跟type的比较
+   * @param {Any} target 
+   * @param {String} type 
+   */
+  function isTypeof(target, type) {
+    return type === /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
   }
 
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
+  /**
+   * 判空
+   * @param {Any} target 
+   */
+  function isEmpty(target) {
+    return [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
   }
 
   /**
@@ -77,12 +52,34 @@
     return result || defaultValue;
   }
 
-  var obj = {
-    getValue: getValue
+  var REG_EMAIL = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+  /**
+   * 校验邮箱地址
+   * @param {String} target 
+   */
+
+  var isEmail = function isEmail(target) {
+    return REG_EMAIL.test(target);
   };
 
-  var faa = function faa() {
-    return _objectSpread2({}, obj);
+  var isMob = /^1[3|4|5|7|8][0-9]{9}$/;
+  var isTel = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+  /**
+   * 校验电话号码
+   * @param {String} target 
+   */
+
+  var isPhone = function isPhone(target) {
+    return isTel.test(target) || isMob.test(target);
+  };
+
+  var faa = {
+    ua: ua,
+    isEmpty: isEmpty,
+    isTypeof: isTypeof,
+    getValue: getValue,
+    isEmail: isEmail,
+    isPhone: isPhone
   };
 
   return faa;

@@ -2,7 +2,7 @@
   "name": "jaa",
   "version": "1.0.0",
   "description": "some util functions used frequently",
-  "main": "index.js",
+  "main": "dist/jaa.js",
   "scripts": {
     "build": "rollup -c ./build/rollup.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
