@@ -24,6 +24,16 @@
     log('isEmpty: ', ure.isEmpty(1), ure.isEmpty([]), ure.isEmpty({}), ure.isEmpty(undefined), ure.isEmpty(null))
     log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}), ure.isEmpty(new Set()))
 
+    const testCloneDeep = {
+      field1: 1,
+      field2: undefined,
+      field3: {
+          child: 'child'
+      },
+      field4: [2, 4, 8]
+    }
+    log('cloneDeep: ', ure.cloneDeep(testCloneDeep))
+
     const testValue = {
       a: {
         b: {

@@ -45,6 +45,131 @@
   };
 
   /**
+   * 浅拷贝
+   * @param {Object} target 
+   */
+  var clone = function clone(target) {
+    return Object.assign({}, target);
+  };
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  /**
+   * Boolean 返回跟type的比较
+   * @param {Any} target 
+   * @param {String} type 
+   */
+  var isTypeof$1 = function isTypeof(target, type) {
+    return type === /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
+  };
+
+  var forEach = function forEach(target, cb) {
+    if (!Array.isArray(target) && !isTypeof$1(cb, 'function')) return;
+    var len = target.length;
+    var i = 0;
+
+    while (i < len) {
+      cb(target[i], i++, target);
+    }
+  };
+
+  var NEED_DEEP = ['array', 'object', 'set', 'map', 'arguments'];
+  /**
+   * 初始化
+   * @param {Any} target 
+   */
+
+  var init = function init(target) {
+    var cons = target.constructor;
+    return new cons();
+  };
+  /**
+   * 克隆其他对象
+   * @param {Any} target 
+   * @param {String} type 
+   */
+
+
+  var cloneOtherType = function cloneOtherType(target, type) {
+    switch (type) {
+      case 'symbol':
+        return Symbol(target.description);
+
+      default:
+        return target;
+    }
+  };
+  /**
+   * 深拷贝 (不拷贝：函数、正则对象、日期对象...)
+   * @param {Object} target 
+   */
+
+
+  var cloneDeep = function cloneDeep(target) {
+    var map = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new WeakMap();
+    var type = getType(target); // 非对象类型
+
+    if (target === null || _typeof(target) !== 'object') {
+      return target;
+    } // 克隆结果
+
+
+    var result; // 根据不同类型处理
+
+    if (NEED_DEEP.includes(type)) {
+      result = init(target);
+    } else {
+      return cloneOtherType(target, type);
+    } // 解决循环引用
+
+
+    if (map.get(target)) {
+      return map.get(target);
+    }
+
+    map.set(target, result); // 克隆set
+
+    if (type === 'set') {
+      target.forEach(function (item) {
+        result.add(cloneDeep(item));
+      });
+      return result;
+    } // 克隆map
+
+
+    if (type === 'map') {
+      target.forEach(function (item, key) {
+        result.set(key, cloneDeep(item));
+      });
+      return result;
+    } // 普通对象与数组克隆
+
+
+    var isArray = type === 'array';
+    var list = isArray ? undefined : Object.keys(target);
+    forEach(list || target, function (val, key) {
+      if (!isArray) {
+        key = val;
+      }
+
+      result[key] = cloneDeep(target[key], map);
+    });
+    return result;
+  };
+
+  /**
    * 根据路径获取对象中的值
    * @param {Object} target
    * @param {String} path 
@@ -151,6 +276,8 @@
     getType: getType,
     isTypeof: isTypeof,
     isEmpty: isEmpty,
+    clone: clone,
+    cloneDeep: cloneDeep,
     getValue: getValue,
     omit: omit,
     random: random,

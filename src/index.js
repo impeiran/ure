@@ -4,6 +4,8 @@ import isTypeof from './lang/isTypeof'
 import getType from './lang/getType'
 import isEmpty from './lang/isEmpty'
 
+import clone from './object/clone'
+import cloneDeep from './object/cloneDeep'
 import getValue from './object/getValue'
 import omit from './object/omit'
 
@@ -21,6 +23,8 @@ const ure = {
   isTypeof,
   isEmpty,
 
+  clone,
+  cloneDeep,
   getValue,
   omit,
 
