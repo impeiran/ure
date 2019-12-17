@@ -3,7 +3,7 @@
  * ure
  * version: 1.0.0
  * desc: An utility library for javascript developer
- * address: https://github.com/impeiran/ure
+ * address: https://github.com/impeiran/ure#readme
  */
 
 (function (global, factory) {
@@ -15,8 +15,8 @@
   /**
    * ua信息
    */
-  var ua = function ua() {
-    return navigator ? navigator.userAgent : null;
+  var ua = function ua(sign) {
+    return navigator ? sign === 'i' ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent : null;
   };
 
   /**
@@ -29,11 +29,19 @@
   };
 
   /**
+   * string 返回type
+   * @param {Any} target 
+   */
+  var getType = function getType(target) {
+    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
+  };
+
+  /**
    * 判空
    * @param {Any} target 
    */
   var isEmpty = function isEmpty(target) {
-    return [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
+    return [Object, Array].includes((target || {}).constructor) && !Object.entries(target || {}).length;
   };
 
   /**
@@ -77,15 +85,19 @@
     return isTel.test(target) || isMob.test(target);
   };
 
-  var faa = {
-    ua: ua,
-    isEmpty: isEmpty,
-    isTypeof: isTypeof,
-    getValue: getValue,
-    isEmail: isEmail,
-    isPhone: isPhone
+  var ure = {
+    ua,
+
+    getType,
+    isTypeof,
+    isEmpty,
+
+    getValue,
+
+    isEmail,
+    isPhone
   };
 
-  return faa;
+  return ure;
 
 })));

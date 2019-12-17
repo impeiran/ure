@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../dist/ure.js"></script>
+</head>
+<body>
+  <script>
+
+    console.log('ua: ', ure.ua('i'))
+
+    console.log('getType: ', ure.getType([]))
+
+    const testArr = []
+    console.log('isTypeof: ', ure.isTypeof(testArr, 'array'))
+
+    console.log('isEmpty: ', ure.isEmpty(1), ure.isEmpty([]), ure.isEmpty({}), ure.isEmpty(undefined), ure.isEmpty(null))
+    console.log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}), ure.isEmpty(new Set()))
+
+    const testValue = {
+      a: {
+        b: {
+          c: 1
+        }
+      }
+    }
+    console.log('getValue: ', ure.getValue(testValue, 'a.b.c'))
+    console.log('getValue: ', ure.getValue(testValue, 'a.b.d'))
+
+    const testTel = '020-86601718'
+    const testMobile = '13650661092'
+    console.log('isPhone: ', ure.isPhone(testTel))
+    console.log('isPhone: ', ure.isPhone(testMobile))
+  </script>
+</body>
+</html>

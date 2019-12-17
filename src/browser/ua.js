@@ -1,9 +1,9 @@
 /**
  * ua信息
  */
-const ua = () => {
+const ua = (sign) => {
   return navigator
-    ? navigator.userAgent
+    ? sign === 'i' ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent
     : null;
 };
 

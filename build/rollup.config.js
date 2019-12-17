@@ -3,14 +3,14 @@ import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 
-import { name, version } from '../package.json';
+import { name, version, homepage } from '../package.json';
 
 const banner = `
 /**
  * ${name}
  * version: ${version}
  * desc: An utility library for javascript developer
- * address: https://github.com/impeiran/ure
+ * address: ${homepage}
  */
 `;
 

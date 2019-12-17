@@ -1,6 +1,7 @@
 import ua from './browser/ua'
 
 import isTypeof from './lang/isTypeof'
+import getType from './lang/getType'
 import isEmpty from './lang/isEmpty'
 
 import getValue from './object/getValue'
@@ -8,11 +9,12 @@ import getValue from './object/getValue'
 import isEmail from './reg/isEmail'
 import isPhone from './reg/isPhone'
 
-const faa = {
+const ure = {
   ua,
 
-  isEmpty,
+  getType,
   isTypeof,
+  isEmpty,
 
   getValue,
 
@@ -20,4 +22,4 @@ const faa = {
   isPhone
 }
 
-export default faa
+export default ure
