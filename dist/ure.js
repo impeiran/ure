@@ -1,7 +1,15 @@
+
+/**
+ * ure
+ * version: 1.0.0
+ * desc: An utility library for frontend developer
+ * address: https://github.com/impeiran/ure
+ */
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.faa = factory());
+  (global = global || self, global.ure = factory());
 }(this, (function () { 'use strict';
 
   /**

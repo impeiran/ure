@@ -1,28 +1,51 @@
-import commonjs from 'rollup-plugin-commonjs'
-import babel from 'rollup-plugin-babel'
-import { terser } from 'rollup-plugin-terser'
+import json from 'rollup-plugin-json';
+import commonjs from 'rollup-plugin-commonjs';
+import babel from 'rollup-plugin-babel';
+import { terser } from 'rollup-plugin-terser';
 
-let plugins = [
+import { name, version } from '../package.json';
+
+const banner = `
+/**
+ * ${name}
+ * version: ${version}
+ * desc: An utility library for frontend developer
+ * address: https://github.com/impeiran/ure
+ */
+`;
+
+const plugins = [
+  json(),
   commonjs(),
   babel({
     exclude: 'node_modules/**',
     extensions: ['.js']
   })
-]
+];
 
 export default {
   input: 'src/index.js',
   output: [
     {
-      name: 'faa',
-      file: 'dist/faa.js',
+      name,
+      banner,
+      file: `dist/${name}.js`,
       format: 'umd',
     },
     {
-      name: 'faa',
-      file: 'dist/faa.min.js',
+      name,
+      banner,
+      file: `dist/${name}.min.js`,
       format: 'iife',
-      plugins: [terser()]
+      plugins: [terser({
+        output: {
+          comments(node, comment) {
+            if (comment.type === 'comment2') {
+              return /version/i.test(comment.value);
+            }
+          }
+        }
+      })]
     }
   ],
   plugins
