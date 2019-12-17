@@ -7,6 +7,6 @@ const isTel = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
  */
 const isPhone = target => {
   return isTel.test(target) || isMob.test(target);
-}
+};
 
 export default isPhone

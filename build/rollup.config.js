@@ -9,7 +9,7 @@ const banner = `
 /**
  * ${name}
  * version: ${version}
- * desc: An utility library for frontend developer
+ * desc: An utility library for javascript developer
  * address: https://github.com/impeiran/ure
  */
 `;

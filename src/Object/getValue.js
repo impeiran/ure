@@ -3,12 +3,8 @@
  * @param {Object} target
  * @param {String} path 
  * @param {Any} defaultValue 
- * 
- * var obj = {a: { b: { c: 1 } }}
- * getValue(obj, 'a.b.c', 2)
- * output: 1
  */
-function getValue (target, path, defaultValue) {
+const getValue = (target, path, defaultValue) => {
   if (target === null || target === undefined) return defaultValue;
 
   const pathList = String.prototype.split.call(path, /[,[\].]+?/)
@@ -22,6 +18,6 @@ function getValue (target, path, defaultValue) {
   }
 
   return result || defaultValue;
-}
+};
 
 export default getValue
