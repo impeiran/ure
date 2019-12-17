@@ -5,6 +5,7 @@ import getType from './lang/getType'
 import isEmpty from './lang/isEmpty'
 
 import getValue from './object/getValue'
+import omit from './object/omit'
 
 import random from './other/random'
 import randomColor from './other/randomColor'
@@ -21,6 +22,7 @@ const ure = {
   isEmpty,
 
   getValue,
+  omit,
 
   random,
   randomColor,

@@ -35,6 +35,13 @@
     log('getValue: ', ure.getValue(testValue, 'b'))
     log('getValue: ', ure.getValue(testValue, 'a.b.d'))
 
+    const testOmit = {
+      a: 1,
+      b: 2,
+      c: 3
+    }
+    log('omit: ', ure.omit(testOmit, ['a', 'b']))
+
     log('random: ', ure.random(10, 20))
     log('randomKey: ', ure.randomKey())
     log('randomColor: ', ure.randomColor())

@@ -65,6 +65,29 @@
   };
 
   /**
+   * 批量删除对象中的key值(shallow)
+   * @param {Object} target 目标对象
+   * @param {String | Array} keys 要删除的key值
+   */
+  var omit = function omit(target, keys) {
+    if (!Array.isArray(keys)) {
+      if (typeof keys === 'string') {
+        keys = keys.split(/,;/);
+      } else {
+        return target;
+      }
+    }
+
+    return Object.keys(target).reduce(function (result, k) {
+      if (!keys.includes(k)) {
+        result[k] = target[k];
+      }
+
+      return result;
+    }, {});
+  };
+
+  /**
    * 
    * @param {Number} min 下限
    * @param {Number} max 上限
@@ -129,6 +152,7 @@
     isTypeof: isTypeof,
     isEmpty: isEmpty,
     getValue: getValue,
+    omit: omit,
     random: random,
     randomColor: randomColor,
     randomKey: randomKey,
