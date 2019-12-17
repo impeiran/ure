@@ -9,16 +9,20 @@
 </head>
 <body>
   <script>
+    function log () {
+      console.log.apply(this, arguments)
+      console.log('\n')
+    }
 
-    console.log('ua: ', ure.ua('i'))
+    log('ua: ', ure.ua('i'))
 
-    console.log('getType: ', ure.getType([]))
+    log('getType: ', ure.getType([]))
 
     const testArr = []
-    console.log('isTypeof: ', ure.isTypeof(testArr, 'array'))
+    log('isTypeof: ', ure.isTypeof(testArr, 'array'))
 
-    console.log('isEmpty: ', ure.isEmpty(1), ure.isEmpty([]), ure.isEmpty({}), ure.isEmpty(undefined), ure.isEmpty(null))
-    console.log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}), ure.isEmpty(new Set()))
+    log('isEmpty: ', ure.isEmpty(1), ure.isEmpty([]), ure.isEmpty({}), ure.isEmpty(undefined), ure.isEmpty(null))
+    log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}), ure.isEmpty(new Set()))
 
     const testValue = {
       a: {
@@ -27,13 +31,22 @@
         }
       }
     }
-    console.log('getValue: ', ure.getValue(testValue, 'a.b.c'))
-    console.log('getValue: ', ure.getValue(testValue, 'a.b.d'))
+    log('getValue: ', ure.getValue(testValue, 'a.b.c'))
+    log('getValue: ', ure.getValue(testValue, 'b'))
+    log('getValue: ', ure.getValue(testValue, 'a.b.d'))
+
+    log('random: ', ure.random(10, 20))
+    log('randomKey: ', ure.randomKey())
+    log('randomColor: ', ure.randomColor())
 
     const testTel = '020-86601718'
     const testMobile = '13650661092'
-    console.log('isPhone: ', ure.isPhone(testTel))
-    console.log('isPhone: ', ure.isPhone(testMobile))
+    log('isPhone: ', ure.isPhone(testTel))
+    log('isPhone: ', ure.isPhone(testMobile))
+
+    const testEmail = '13650661092@163.com'
+    log('isEmail: ', ure.isEmail(testEmail))
+
   </script>
 </body>
 </html>

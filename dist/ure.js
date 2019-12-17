@@ -64,6 +64,44 @@
     return result || defaultValue;
   };
 
+  /**
+   * 
+   * @param {Number} min 下限
+   * @param {Number} max 上限
+   * @param {Boolean} floor 向下取整
+   */
+  var random = function random() {
+    var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var floor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+    var result = Math.random() * (max - min) + min;
+    return floor ? Math.floor(result) : result;
+  };
+
+  /**
+   * 生成随机hash颜色值
+   */
+  var randomColor = function randomColor() {
+    return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+  };
+
+  var KEY_SIGN_LIST = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+  /**
+   * 随机生成key值
+   * @param {Number} len 长度
+   */
+
+  var randomKey = function randomKey() {
+    var len = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 16;
+    var result = '';
+
+    for (var i = 0; i < len; i++) {
+      result += KEY_SIGN_LIST.charAt(Math.floor(Math.random() * (KEY_SIGN_LIST.length)));
+    }
+
+    return result;
+  };
+
   var REG_EMAIL = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
   /**
    * 校验邮箱地址
@@ -86,16 +124,16 @@
   };
 
   var ure = {
-    ua,
-
-    getType,
-    isTypeof,
-    isEmpty,
-
-    getValue,
-
-    isEmail,
-    isPhone
+    ua: ua,
+    getType: getType,
+    isTypeof: isTypeof,
+    isEmpty: isEmpty,
+    getValue: getValue,
+    random: random,
+    randomColor: randomColor,
+    randomKey: randomKey,
+    isEmail: isEmail,
+    isPhone: isPhone
   };
 
   return ure;
