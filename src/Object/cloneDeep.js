@@ -1,5 +1,5 @@
-import getType from '../lang/getType'
-import isTypeOf from '../lang/isTypeOf'
+import getType from '../lang/getType.js'
+import isTypeOf from '../lang/isTypeOf.js'
 
 const forEach = (target, cb) => {
   if (!Array.isArray(target) && !isTypeOf(cb, 'function')) return;

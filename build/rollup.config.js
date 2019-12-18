@@ -1,3 +1,4 @@
+import resolve from 'rollup-plugin-node-resolve';
 import json from 'rollup-plugin-json';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
@@ -16,9 +17,11 @@ const banner = `
 
 const plugins = [
   json(),
+  resolve(),
   commonjs(),
   babel({
     exclude: 'node_modules/**',
+    runtimeHelpers: true,
     extensions: ['.js']
   })
 ];
