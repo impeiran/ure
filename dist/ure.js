@@ -43,7 +43,7 @@
    * @param {Any} target 
    */
   var isEmpty = function isEmpty(target) {
-    return [Object, Array].includes((target || {}).constructor) && !Object.entries(target || {}).length;
+    return [Object, Array].includes((target || {}).constructor) && !Object.keys(target || {}).length;
   };
 
   /**
