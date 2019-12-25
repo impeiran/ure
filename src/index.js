@@ -1,4 +1,5 @@
 import ua from './browser/ua'
+import download from './browser/download'
 
 import isTypeof from './lang/isTypeof'
 import getType from './lang/getType'
@@ -18,6 +19,7 @@ import isPhone from './reg/isPhone'
 
 const ure = {
   ua,
+  download,
 
   getType,
   isTypeof,

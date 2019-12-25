@@ -20,6 +20,37 @@
   };
 
   /**
+   * 下载Url链接的资源
+   * @param {Object | String} option 配置项或者url
+   */
+  var download = function download(option) {
+    if (!option) return false;
+    var defaultOption = {
+      name: true,
+      open: false
+    };
+
+    if (typeof option === 'string') {
+      option = Object.assign(defaultOption, {
+        url: option
+      });
+    } else {
+      option = Object.assign(defaultOption, option);
+    }
+
+    if (!option.url) return false;
+    var a = document.createElement('a');
+    a.setAttribute('href', option.url);
+    a.setAttribute('target', option.open ? '_blank' : '_self');
+    a.setAttribute('download', option.name);
+    a.style.display = 'none';
+    document.body.append(a);
+    console.log(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  /**
    * Boolean 返回跟type的比较
    * @param {Any} target 
    * @param {String} type 
@@ -273,6 +304,7 @@
 
   var ure = {
     ua: ua,
+    download: download,
     getType: getType,
     isTypeof: isTypeof,
     isEmpty: isEmpty,

@@ -8,6 +8,9 @@
   <script src="../dist/ure.js"></script>
 </head>
 <body>
+
+  <button id="downloadBtn">测试下载</button>
+
   <script>
     function log () {
       console.log.apply(this, arguments)
@@ -15,6 +18,13 @@
     }
 
     log('ua: ', ure.ua('i'))
+
+    document.getElementById('downloadBtn').onclick = e => {
+      ure.download({
+        url: 'https://itdev.gosuncn.net/gmcms/upload/20191225113935861_%E9%9C%80%E5%8D%8F%E8%B0%83%E9%97%AE%E9%A2%98%E8%A1%A8(3).xlsx/download',
+        name: '666'
+      })
+    }
 
     log('getType: ', ure.getType([]))
 
