@@ -1,18 +1,16 @@
 
 /**
  * ure
- * version: 1.0.0
+ * version: 0.1.0
  * desc: An utility library for javascript developer
  * address: https://github.com/impeiran/ure#readme
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/typeof')) :
-  typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/typeof'], factory) :
-  (global = global || self, global.ure = factory(global._typeof));
-}(this, (function (_typeof) { 'use strict';
-
-  _typeof = _typeof && _typeof.hasOwnProperty('default') ? _typeof['default'] : _typeof;
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = global || self, global.ure = factory());
+}(this, (function () { 'use strict';
 
   /**
    * ua信息
@@ -53,6 +51,20 @@
   var clone = function clone(target) {
     return Object.assign({}, target);
   };
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
 
   /**
    * Boolean 返回跟type的比较
