@@ -1,5 +1,5 @@
-const isMob = val => /^1[3|4|5|7|8][0-9]{9}$/.test(val);
-const isTel = val => /^((\+86)|(86)\s)?(1)\d{10}$/.test(val) || /^0[0-9-]{10,13}$/.test(val);
+const isTel = val => /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(val);
+const isMob = val => /^((\+86)|(86)\s)?(1)\d{10}$/.test(val) || /^0[0-9-]{10,13}$/.test(val);
 
 /**
  * 校验电话号码

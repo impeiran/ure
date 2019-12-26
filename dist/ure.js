@@ -321,11 +321,11 @@
     return REG_EMAIL.test(target);
   };
 
-  var isMob = function isMob(val) {
-    return /^1[3|4|5|7|8][0-9]{9}$/.test(val);
+  var isTel = function isTel(val) {
+    return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(val);
   };
 
-  var isTel = function isTel(val) {
+  var isMob = function isMob(val) {
     return /^((\+86)|(86)\s)?(1)\d{10}$/.test(val) || /^0[0-9-]{10,13}$/.test(val);
   };
   /**
