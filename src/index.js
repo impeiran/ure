@@ -1,4 +1,17 @@
 import ua from './browser/ua'
+import { 
+  isMobile,
+  isPC,
+  isIE,
+  isEdge,
+  isIOS,
+  isIPad,
+  isAndroid,
+  isWeixin,
+  isQQ,
+  isDingTalk
+ } from './browser/ua'
+
 import download from './browser/download'
 
 import isTypeof from './lang/isTypeof'
@@ -19,6 +32,17 @@ import isPhone from './reg/isPhone'
 
 const ure = {
   ua,
+  isMobile,
+  isPC,
+  isIE,
+  isEdge,
+  isIOS,
+  isIPad,
+  isAndroid,
+  isWeixin,
+  isQQ,
+  isDingTalk,
+
   download,
 
   getType,
