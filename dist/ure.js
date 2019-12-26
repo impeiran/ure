@@ -2,8 +2,8 @@
 /**
  * ure
  * version: 0.1.0
- * desc: An utility library for javascript developer
- * address: https://github.com/impeiran/ure#readme
+ * author: impeiran,
+ * homepage: https://github.com/impeiran/ure#readme
  */
 
 (function (global, factory) {
@@ -16,7 +16,38 @@
    * ua信息
    */
   var ua = function ua(sign) {
-    return navigator ? sign === 'i' ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent : null;
+    return navigator ? sign ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent : null;
+  };
+
+  var isMobile = function isMobile() {
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/.test(ua('i'));
+  };
+  var isPC = function isPC() {
+    return !isMobile();
+  };
+  var isIE = function isIE() {
+    return !!window.ActiveXObject || 'ActiveXObject' in window;
+  };
+  var isEdge = function isEdge() {
+    return /Edge/.test(ua());
+  };
+  var isIOS = function isIOS() {
+    return /ios|iphone|ipad|ipod/.test(ua('i'));
+  };
+  var isIPad = function isIPad() {
+    return /ipad/.test(ua('i'));
+  };
+  var isAndroid = function isAndroid() {
+    return /android/.test(ua('i'));
+  };
+  var isWeixin = function isWeixin() {
+    return /MicroMessenger/i.test(ua());
+  };
+  var isQQ = function isQQ() {
+    return /qq\//.test(ua('i'));
+  };
+  var isDingTalk = function isDingTalk() {
+    return /dingtalk/.test(ua('i'));
   };
 
   /**
@@ -290,19 +321,35 @@
     return REG_EMAIL.test(target);
   };
 
-  var isMob = /^1[3|4|5|7|8][0-9]{9}$/;
-  var isTel = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+  var isMob = function isMob(val) {
+    return /^1[3|4|5|7|8][0-9]{9}$/.test(val);
+  };
+
+  var isTel = function isTel(val) {
+    return /^((\+86)|(86)\s)?(1)\d{10}$/.test(val) || /^0[0-9-]{10,13}$/.test(val);
+  };
   /**
    * 校验电话号码
    * @param {String} target 
    */
 
+
   var isPhone = function isPhone(target) {
-    return isTel.test(target) || isMob.test(target);
+    return isTel(target) || isMob(target);
   };
 
   var ure = {
     ua: ua,
+    isMobile: isMobile,
+    isPC: isPC,
+    isIE: isIE,
+    isEdge: isEdge,
+    isIOS: isIOS,
+    isIPad: isIPad,
+    isAndroid: isAndroid,
+    isWeixin: isWeixin,
+    isQQ: isQQ,
+    isDingTalk: isDingTalk,
     download: download,
     getType: getType,
     isTypeof: isTypeof,
