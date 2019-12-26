@@ -106,6 +106,45 @@
   };
 
   /**
+   * 判断是否在范围内
+   * @param {Number} left 左边界
+   * @param {Number} right 右边界
+   * @param {Number} target 目标值
+   */
+  var inRange = function inRange(left, right, target) {
+    if ([left, right, target].some(function (item) {
+      return typeof item !== 'number';
+    })) {
+      return false;
+    }
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return target >= left && target <= right;
+  };
+
+  /**
+   * 取中间值
+   * @param {Number} left 左边界值
+   * @param {Number} right 右边界值
+   */
+  var midNumber = function midNumber(left, right) {
+    if (typeof left !== 'number' || typeof right !== 'number') return NaN;
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return (right - left) / 2 + left;
+  };
+
+  /**
    * 浅拷贝
    * @param {Object} target 
    */
@@ -354,6 +393,8 @@
     getType: getType,
     isTypeof: isTypeof,
     isEmpty: isEmpty,
+    inRange: inRange,
+    midNumber: midNumber,
     clone: clone,
     cloneDeep: cloneDeep,
     getValue: getValue,

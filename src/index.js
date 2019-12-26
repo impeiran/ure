@@ -18,6 +18,9 @@ import isTypeof from './lang/isTypeof'
 import getType from './lang/getType'
 import isEmpty from './lang/isEmpty'
 
+import inRange from './number/inRange'
+import midNumber from './number/midNumber'
+
 import clone from './object/clone'
 import cloneDeep from './object/cloneDeep'
 import getValue from './object/getValue'
@@ -48,6 +51,9 @@ const ure = {
   getType,
   isTypeof,
   isEmpty,
+
+  inRange,
+  midNumber,
 
   clone,
   cloneDeep,
