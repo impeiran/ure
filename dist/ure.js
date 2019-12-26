@@ -45,7 +45,6 @@
     a.setAttribute('download', option.name);
     a.style.display = 'none';
     document.body.append(a);
-    console.log(a);
     a.click();
     document.body.removeChild(a);
   };
@@ -69,7 +68,7 @@
 
   /**
    * 判空
-   * @param {Any} target 
+   * @param {Any} target
    */
   var isEmpty = function isEmpty(target) {
     return [Object, Array].includes((target || {}).constructor) && !Object.keys(target || {}).length;

@@ -5,7 +5,7 @@
 const download = (option) => {
   if (!option) return false;
 
-  let defaultOption = {
+  const defaultOption = {
     name: true,
     open: false
   }
@@ -25,8 +25,6 @@ const download = (option) => {
   a.style.display = 'none';
 
   document.body.append(a);
-
-  console.log(a)
 
   a.click();
 
