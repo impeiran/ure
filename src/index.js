@@ -33,6 +33,7 @@ import randomColor from './other/randomColor'
 import randomKey from './other/randomKey'
 
 import isEmail from './reg/isEmail'
+import isNumber from './reg/isNumber'
 import isPhone from './reg/isPhone'
 
 const ure = {
@@ -69,6 +70,7 @@ const ure = {
   randomKey,
 
   isEmail,
+  isNumber,
   isPhone
 }
 

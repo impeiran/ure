@@ -380,6 +380,14 @@
     return REG_EMAIL.test(target);
   };
 
+  /**
+   * 检测是否为数值
+   * @param {Any} target 
+   */
+  var isNumber = function isNumber(target) {
+    return /^\d+(\.\d)?$/.test(target);
+  };
+
   var isTel = function isTel(val) {
     return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(val);
   };
@@ -425,6 +433,7 @@
     randomColor: randomColor,
     randomKey: randomKey,
     isEmail: isEmail,
+    isNumber: isNumber,
     isPhone: isPhone
   };
 
