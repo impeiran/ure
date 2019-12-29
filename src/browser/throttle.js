@@ -4,6 +4,8 @@
  * @param {Number} wait 时间间隔 
  */
 const throttle = (fn, wait) => {
+  wait = wait || 0;
+
   let prev = 0;
 
   return function () {

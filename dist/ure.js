@@ -166,6 +166,7 @@
    * @param {Number} wait 时间间隔 
    */
   var throttle = function throttle(fn, wait) {
+    wait = wait || 0;
     var prev = 0;
     return function () {
       var context = this;
