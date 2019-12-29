@@ -3,7 +3,8 @@
  * @param {Object} target 
  */
 const clone = (target) => {
-  return Object.assign({}, target);
+  if (target == null || typeof target !== 'object') return target;
+  return {...target};
 }
 
-export default clone
+export default clone;
