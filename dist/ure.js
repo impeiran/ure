@@ -50,136 +50,6 @@
     return /dingtalk/.test(ua('i'));
   };
 
-  /**
-   * 下载Url链接的资源
-   * @param {Object | String} option 配置项或者url
-   */
-  var download = function download(option) {
-    if (!option) return false;
-    var defaultOption = {
-      name: true,
-      open: false
-    };
-
-    if (typeof option === 'string') {
-      option = Object.assign(defaultOption, {
-        url: option
-      });
-    } else {
-      option = Object.assign(defaultOption, option);
-    }
-
-    if (!option.url) return false;
-    var a = document.createElement('a');
-    a.setAttribute('href', option.url);
-    a.setAttribute('target', option.open ? '_blank' : '_self');
-    a.setAttribute('download', option.name);
-    a.style.display = 'none';
-    document.body.append(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
-  /**
-   * 函数防抖
-   * @param {Function} fn 需要截流的函数
-   * @param {Number} wait 等待时长 单位ms
-   */
-  var debounce = function debounce(fn, wait) {
-    var timer;
-    return function () {
-      var context = this;
-      var args = arguments;
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(context, args);
-      }, wait);
-    };
-  };
-
-  /**
-   * 节流
-   * @param {Function} fn 被节流的函数
-   * @param {Number} wait 时间间隔 
-   */
-  var throttle = function throttle(fn, wait) {
-    var prev = 0;
-    return function () {
-      var context = this;
-      var args = arguments;
-      var now = +new Date();
-
-      if (now - prev > wait) {
-        prev = now;
-        fn.apply(context, args);
-      }
-    };
-  };
-
-  /**
-   * Boolean 返回跟type的比较
-   * @param {Any} target 
-   * @param {String} type 
-   */
-  var isTypeof = function isTypeof(target, type) {
-    return type === /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
-  };
-
-  /**
-   * string 返回type
-   * @param {Any} target 
-   */
-  var getType = function getType(target) {
-    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
-  };
-
-  /**
-   * 判空
-   * @param {Any} target
-   */
-  var isEmpty = function isEmpty(target) {
-    return [Object, Array].includes((target || {}).constructor) && !Object.keys(target || {}).length;
-  };
-
-  /**
-   * 判断是否在范围内
-   * @param {Number} left 左边界
-   * @param {Number} right 右边界
-   * @param {Number} target 目标值
-   */
-  var inRange = function inRange(left, right, target) {
-    if ([left, right, target].some(function (item) {
-      return typeof item !== 'number';
-    })) {
-      return false;
-    }
-
-    if (left > right) {
-      var _ref = [right, left];
-      left = _ref[0];
-      right = _ref[1];
-    }
-
-    return target >= left && target <= right;
-  };
-
-  /**
-   * 取中间值
-   * @param {Number} left 左边界值
-   * @param {Number} right 右边界值
-   */
-  var midNumber = function midNumber(left, right) {
-    if (typeof left !== 'number' || typeof right !== 'number') return NaN;
-
-    if (left > right) {
-      var _ref = [right, left];
-      left = _ref[0];
-      right = _ref[1];
-    }
-
-    return (right - left) / 2 + left;
-  };
-
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
       _typeof = function (obj) {
@@ -242,6 +112,138 @@
 
     return target;
   }
+
+  /**
+   * 下载Url链接的资源
+   * @param {Object | String} option 配置项或者url
+   */
+  var download = function download(option) {
+    if (!option) return false;
+    var defaultOption = {
+      name: true,
+      open: false
+    };
+
+    if (typeof option === 'string') {
+      option = _objectSpread2({}, defaultOption, {
+        url: option
+      });
+    } else {
+      option = _objectSpread2({}, defaultOption, {}, option);
+    }
+
+    if (!option.url) return false;
+    var a = document.createElement('a');
+    a.setAttribute('href', option.url);
+    a.setAttribute('target', option.open ? '_blank' : '_self');
+    a.setAttribute('download', option.name);
+    a.style.display = 'none';
+    document.body.append(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  /**
+   * 函数防抖
+   * @param {Function} fn 需要截流的函数
+   * @param {Number} wait 等待时长 单位ms
+   */
+  var debounce = function debounce(fn, wait) {
+    var timer;
+    return function () {
+      var context = this;
+      var args = arguments;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, wait);
+    };
+  };
+
+  /**
+   * 节流
+   * @param {Function} fn 被节流的函数
+   * @param {Number} wait 时间间隔 
+   */
+  var throttle = function throttle(fn, wait) {
+    var prev = 0;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var now = +new Date();
+
+      if (now - prev > wait) {
+        prev = now;
+        fn.apply(context, args);
+      }
+    };
+  };
+
+  /**
+   * string 返回type
+   * @param {Any} target 
+   */
+  var getType = function getType(target) {
+    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
+  };
+
+  /**
+   * Boolean 返回跟type的比较
+   * @param {Any} target 
+   * @param {String} type 
+   */
+
+  var isTypeof = function isTypeof(target, type) {
+    return type === getType(target);
+  };
+
+  /**
+   * 判空
+   * @param {Any} target
+   */
+  var isEmpty = function isEmpty(target) {
+    var cst = (target || {}).constructor;
+    return (cst === Object || cst === Array) && !Object.keys(target || {}).length;
+  };
+
+  /**
+   * 判断是否在范围内
+   * @param {Number} left 左边界
+   * @param {Number} right 右边界
+   * @param {Number} target 目标值
+   */
+  var inRange = function inRange(left, right, target) {
+    if ([left, right, target].some(function (item) {
+      return typeof item !== 'number';
+    })) {
+      return false;
+    }
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return target >= left && target <= right;
+  };
+
+  /**
+   * 取中间值
+   * @param {Number} left 左边界值
+   * @param {Number} right 右边界值
+   */
+  var midNumber = function midNumber(left, right) {
+    if (typeof left !== 'number' || typeof right !== 'number') return NaN;
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return (right - left) / 2 + left;
+  };
 
   /**
    * 浅拷贝

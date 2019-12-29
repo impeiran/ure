@@ -11,9 +11,9 @@ const download = (option) => {
   }
 
   if (typeof option === 'string') {
-    option = Object.assign(defaultOption, { url: option })
+    option = {...defaultOption, url: option};
   } else {
-    option = Object.assign(defaultOption, option)
+    option = {...defaultOption, ...option};
   }
 
   if (!option.url) return false;
