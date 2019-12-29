@@ -271,13 +271,12 @@
     // 非对象类型
     if (target === null || _typeof(target) !== 'object' || typeof target === 'function') {
       return target;
-    } // 克隆结果
+    } // 普通对象与数组克隆
 
-
-    var result; // 普通对象与数组克隆
 
     var isArray = Array.isArray(target);
     var list = isArray ? undefined : Object.keys(target);
+    var result = isArray ? [] : {};
     forEach(list || target, function (val, key) {
       if (!isArray) {
         key = val;

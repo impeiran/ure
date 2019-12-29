@@ -18,13 +18,11 @@ const cloneDeep = (target) => {
     return target;
   }
 
-  // 克隆结果
-  let result;
-
   // 普通对象与数组克隆
   const isArray = Array.isArray(target);
-  
   const list = isArray ? undefined : Object.keys(target);
+  const result = isArray ? [] : {};
+  
   forEach(list || target, (val, key) => {
     if (!isArray) {
       key = val;
