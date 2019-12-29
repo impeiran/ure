@@ -10,6 +10,7 @@
 <body>
 
   <button id="downloadBtn">测试下载</button>
+  <div id="testDebounce"></div>
 
   <script>
     function log () {
@@ -25,6 +26,10 @@
         name: '666'
       })
     }
+
+    document.addEventListener('mousemove', ure.throttle(e => {
+      document.getElementById('testDebounce').innerHTML = +new Date()
+    }, 800))
 
     log('getType: ', ure.getType([]))
 

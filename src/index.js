@@ -13,6 +13,8 @@ import {
  } from './browser/ua'
 
 import download from './browser/download'
+import debounce from './browser/debounce'
+import throttle from './browser/throttle'
 
 import isTypeof from './lang/isTypeof'
 import getType from './lang/getType'
@@ -47,6 +49,8 @@ const ure = {
   isDingTalk,
 
   download,
+  debounce,
+  throttle,
 
   getType,
   isTypeof,

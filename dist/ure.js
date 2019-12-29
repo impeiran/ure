@@ -81,6 +81,42 @@
   };
 
   /**
+   * 函数防抖
+   * @param {Function} fn 需要截流的函数
+   * @param {Number} wait 等待时长 单位ms
+   */
+  var debounce = function debounce(fn, wait) {
+    var timer;
+    return function () {
+      var context = this;
+      var args = arguments;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, wait);
+    };
+  };
+
+  /**
+   * 节流
+   * @param {Function} fn 被节流的函数
+   * @param {Number} wait 时间间隔 
+   */
+  var throttle = function throttle(fn, wait) {
+    var prev = 0;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var now = +new Date();
+
+      if (now - prev > wait) {
+        prev = now;
+        fn.apply(context, args);
+      }
+    };
+  };
+
+  /**
    * Boolean 返回跟type的比较
    * @param {Any} target 
    * @param {String} type 
@@ -390,6 +426,8 @@
     isQQ: isQQ,
     isDingTalk: isDingTalk,
     download: download,
+    debounce: debounce,
+    throttle: throttle,
     getType: getType,
     isTypeof: isTypeof,
     isEmpty: isEmpty,
