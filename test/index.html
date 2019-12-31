@@ -79,6 +79,10 @@
     const testEmail = '13650661092@163.com'
     log('isEmail: ', ure.isEmail(testEmail))
 
+    const testUrl = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=test&rsv_pq=83b2320d0043ee28&rsv_t=fb4fvRovi2ClLb9jwoWcZSSoYAjrGKAY%2FczSzHOxHubCHReCmDGbdSWLL3A&rqlang=cn&rsv_enter=1&rsv_dl=tb&rsv_sug3=4&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=685&rsv_sug4=685'
+    log('parseQuery', ure.parseQuery(testUrl))
+    log('parseUrl', ure.parseUrl(testUrl))
+
   </script>
 </body>
 </html>

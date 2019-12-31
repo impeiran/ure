@@ -405,6 +405,97 @@
     return isTel(target) || isMob(target);
   };
 
+  /**
+   * 转换url
+   * @param {String} url 
+   */
+  var parseUrl = function parseUrl(url) {
+    if (typeof url !== 'string') return {};
+    return {
+      protocol: getProtocol(url)
+    };
+  };
+  /**
+   * 转换query对象
+   * @param {String} target 
+   */
+
+  var parseQuery = function parseQuery(target) {
+    var searchLoc = findSign(target, '?');
+
+    if (searchLoc == -1) {
+      return {};
+    }
+
+    var hashLoc = findSign(target, '#');
+    var search = ~hashLoc && hashLoc > searchLoc ? target.slice(searchLoc + 1, hashLoc) : target.slice(searchLoc + 1);
+
+    if (search) {
+      return search.split('&').reduce(function (ret, item) {
+        var keyValue = ~item.indexOf('=') ? item.split('=') : [];
+
+        if (keyValue[0]) {
+          ret[keyValue[0]] = keyValue[1];
+        }
+
+        return ret;
+      }, {});
+    } else {
+      return {};
+    }
+  };
+  /**
+   * 获取url的参数
+   * @param {String} url 
+   * @param {String} key 
+   * From https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+   */
+
+  var getUrlParam = function getUrlParam(url, key) {
+    if (!url || !key) return null;
+    key.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + key + '(=([^&#]*)|&|#|$)');
+    var results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  };
+  /**
+   * 设置url的参数
+   * @param {String} url 
+   * @param {String} key 
+   * @param {String} val 
+   * From https://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
+   */
+
+  var setUrlParam = function setUrlParam(url, key, val) {
+    if (!url || !key) return url;
+    var re = new RegExp('([?|&])' + key + '=.*?(&|#|$)', 'i');
+
+    if (url.match(re)) {
+      return url.replace(re, '$1' + key + '=' + encodeURIComponent(val) + '$2');
+    } else {
+      var hash = '';
+
+      if (url.indexOf('#') !== -1) {
+        hash = url.replace(/.*#/, '#');
+        url.replace(/#.*/, '');
+      }
+
+      var separator = url.indexOf('?') !== -1 ? '&' : '?';
+      return url + separator + key + '=' + encodeURIComponent(val) + hash;
+    }
+  };
+
+  function findSign(target, sign) {
+    return (target || '').indexOf(sign);
+  }
+
+  function getProtocol(target) {
+    var result = new RegExp('^(.*)://').exec(target);
+    return result ? result[1] : null;
+  }
+
   var ure = {
     ua: ua,
     isMobile: isMobile,
@@ -434,7 +525,11 @@
     randomKey: randomKey,
     isEmail: isEmail,
     isNumber: isNumber,
-    isPhone: isPhone
+    isPhone: isPhone,
+    parseUrl: parseUrl,
+    parseQuery: parseQuery,
+    getUrlParam: getUrlParam,
+    setUrlParam: setUrlParam
   };
 
   return ure;

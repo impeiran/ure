@@ -4,6 +4,10 @@
  */
 export const parseUrl = (url) => {
   if (typeof url !== 'string') return {};
+
+  return {
+    protocol: getProtocol(url)
+  }
 };
 
 /**
@@ -11,7 +15,28 @@ export const parseUrl = (url) => {
  * @param {String} target 
  */
 export const parseQuery = (target) => {
+  const searchLoc = findSign(target, '?');
+  if (searchLoc == -1) {
+    return {};
+  }
 
+  const hashLoc = findSign(target, '#');
+
+  let search = ~hashLoc && hashLoc > searchLoc
+    ? target.slice(searchLoc + 1, hashLoc)
+    : target.slice(searchLoc + 1);
+
+  if (search) {
+    return search.split('&').reduce((ret, item) => {
+      const keyValue = ~item.indexOf('=') ? item.split('=') : [];
+      if (keyValue[0]) {
+        ret[keyValue[0]] = keyValue[1];
+      }
+      return ret;
+    }, {});
+  } else {
+    return {};
+  }
 };
 
 /**
@@ -40,7 +65,7 @@ export const getUrlParam = (url, key) => {
  * From https://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
  */
 export const setUrlParam = (url, key, val) => {
-  if (!url || !key) return null;
+  if (!url || !key) return url;
 
   let re = new RegExp('([?|&])' + key + '=.*?(&|#|$)', 'i');
 
@@ -56,3 +81,13 @@ export const setUrlParam = (url, key, val) => {
     return url + separator + key + '=' + encodeURIComponent(val) + hash;
   }
 };
+
+function findSign (target, sign) {
+  return (target || '').indexOf(sign);
+}
+
+function getProtocol (target) {
+  let result = (new RegExp('^(.*)://')).exec(target);
+
+  return result ? result[1] : null;
+}

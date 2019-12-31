@@ -36,6 +36,13 @@ import isEmail from './reg/isEmail'
 import isNumber from './reg/isNumber'
 import isPhone from './reg/isPhone'
 
+import {
+  parseUrl,
+  parseQuery,
+  getUrlParam,
+  setUrlParam
+} from './url'
+
 const ure = {
   ua,
   isMobile,
@@ -71,7 +78,12 @@ const ure = {
 
   isEmail,
   isNumber,
-  isPhone
+  isPhone,
+
+  parseUrl,
+  parseQuery,
+  getUrlParam,
+  setUrlParam
 }
 
 export default ure
