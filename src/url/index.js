@@ -3,10 +3,30 @@
  * @param {String} url 
  */
 export const parseUrl = (url) => {
-  if (typeof url !== 'string') return {};
+  if (typeof url !== 'string') return null;
 
-  return {
-    protocol: getProtocol(url)
+  if (document) {
+    const a = document.createElement('a');
+    a.href = url;
+
+    const result = [
+      'protocol', 
+      'host', 
+      'origin', 
+      'port', 
+      'pathname', 
+      'search', 
+      'hash'
+    ].reduce((ret, k) => {
+      ret[k] = a[k];
+      return ret;
+    }, {});
+
+    result.query = result.search ? handleSearch(result.search.slice(1)) : {};
+
+    return result;
+  } else {
+    return {};
   }
 };
 
@@ -26,17 +46,7 @@ export const parseQuery = (target) => {
     ? target.slice(searchLoc + 1, hashLoc)
     : target.slice(searchLoc + 1);
 
-  if (search) {
-    return search.split('&').reduce((ret, item) => {
-      const keyValue = ~item.indexOf('=') ? item.split('=') : [];
-      if (keyValue[0]) {
-        ret[keyValue[0]] = keyValue[1];
-      }
-      return ret;
-    }, {});
-  } else {
-    return {};
-  }
+  return search ? handleSearch(search) : {};
 };
 
 /**
@@ -86,8 +96,12 @@ function findSign (target, sign) {
   return (target || '').indexOf(sign);
 }
 
-function getProtocol (target) {
-  let result = (new RegExp('^(.*)://')).exec(target);
-
-  return result ? result[1] : null;
+function handleSearch (target) {
+  return target.split('&').reduce((ret, item) => {
+    const keyValue = ~item.indexOf('=') ? item.split('=') : [];
+    if (keyValue[0]) {
+      ret[keyValue[0]] = keyValue[1];
+    }
+    return ret;
+  }, {});
 }

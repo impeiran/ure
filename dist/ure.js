@@ -410,10 +410,20 @@
    * @param {String} url 
    */
   var parseUrl = function parseUrl(url) {
-    if (typeof url !== 'string') return {};
-    return {
-      protocol: getProtocol(url)
-    };
+    if (typeof url !== 'string') return null;
+
+    if (document) {
+      var a = document.createElement('a');
+      a.href = url;
+      var result = ['protocol', 'host', 'origin', 'port', 'pathname', 'search', 'hash'].reduce(function (ret, k) {
+        ret[k] = a[k];
+        return ret;
+      }, {});
+      result.query = result.search ? handleSearch(result.search.slice(1)) : {};
+      return result;
+    } else {
+      return {};
+    }
   };
   /**
    * 转换query对象
@@ -429,20 +439,7 @@
 
     var hashLoc = findSign(target, '#');
     var search = ~hashLoc && hashLoc > searchLoc ? target.slice(searchLoc + 1, hashLoc) : target.slice(searchLoc + 1);
-
-    if (search) {
-      return search.split('&').reduce(function (ret, item) {
-        var keyValue = ~item.indexOf('=') ? item.split('=') : [];
-
-        if (keyValue[0]) {
-          ret[keyValue[0]] = keyValue[1];
-        }
-
-        return ret;
-      }, {});
-    } else {
-      return {};
-    }
+    return search ? handleSearch(search) : {};
   };
   /**
    * 获取url的参数
@@ -491,9 +488,16 @@
     return (target || '').indexOf(sign);
   }
 
-  function getProtocol(target) {
-    var result = new RegExp('^(.*)://').exec(target);
-    return result ? result[1] : null;
+  function handleSearch(target) {
+    return target.split('&').reduce(function (ret, item) {
+      var keyValue = ~item.indexOf('=') ? item.split('=') : [];
+
+      if (keyValue[0]) {
+        ret[keyValue[0]] = keyValue[1];
+      }
+
+      return ret;
+    }, {});
   }
 
   var ure = {
