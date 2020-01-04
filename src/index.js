@@ -35,6 +35,7 @@ import randomKey from './other/randomKey'
 import isEmail from './reg/isEmail'
 import isNumber from './reg/isNumber'
 import isPhone from './reg/isPhone'
+import isImage from './reg/isImage'
 
 import {
   parseUrl,
@@ -79,6 +80,7 @@ const ure = {
   isEmail,
   isNumber,
   isPhone,
+  isImage,
 
   parseUrl,
   parseQuery,

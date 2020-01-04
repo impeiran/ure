@@ -406,6 +406,14 @@
   };
 
   /**
+   * 判断是否图片
+   * @param {String} target 
+   */
+  var isImage = function isImage(target) {
+    return /\.(jpeg|jpg|png|bmp|gif｜wbmp|svg)$/i.test(target);
+  };
+
+  /**
    * 转换url
    * @param {String} url 
    */
@@ -530,6 +538,7 @@
     isEmail: isEmail,
     isNumber: isNumber,
     isPhone: isPhone,
+    isImage: isImage,
     parseUrl: parseUrl,
     parseQuery: parseQuery,
     getUrlParam: getUrlParam,
