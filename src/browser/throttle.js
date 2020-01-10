@@ -15,7 +15,7 @@ const throttle = (fn, wait) => {
 
     if (now - prev > wait) {
       prev = now;
-      fn.apply(context, args);
+      return fn.apply(context, args);
     }
   };
 }

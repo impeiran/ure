@@ -13,7 +13,7 @@ const debounce = (fn, wait) => {
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {
-      fn.apply(context, args);
+      return fn.apply(context, args);
     }, wait);
   };
 }
