@@ -120,8 +120,8 @@
   var download = function download(option) {
     if (!option) return false;
     var defaultOption = {
-      name: true,
-      open: false
+      method: 'get',
+      name: ''
     };
 
     if (typeof option === 'string') {
@@ -133,14 +133,53 @@
     }
 
     if (!option.url) return false;
-    var a = document.createElement('a');
-    a.setAttribute('href', option.url);
-    a.setAttribute('target', option.open ? '_blank' : '_self');
-    a.setAttribute('download', option.name);
-    a.style.display = 'none';
-    document.body.append(a);
-    a.click();
-    document.body.removeChild(a);
+
+    var _createElement = function _createElement(tagName, attrs) {
+      var el = document.createElement(tagName);
+      Object.keys(attrs).forEach(function (key) {
+        el.setAttribute(key, attrs[key]);
+      });
+      return el;
+    };
+
+    var _action = function _action(el, trigger) {
+      document.body.appendChild(el);
+      trigger();
+      document.body.removeChild(el);
+    };
+
+    var method = option.method ? option.method.toLowerCase() : '';
+
+    if (method === 'get') {
+      var a = _createElement('a', {
+        href: option.url,
+        download: option.name,
+        target: '_blank',
+        style: 'display:none;'
+      });
+
+      _action(a, function () {
+        return a.click();
+      });
+    } else if (method === 'post') {
+      var form = _createElement('form', {
+        method: method,
+        action: option.url,
+        target: '_blank'
+      });
+
+      Object.keys(option.data || {}).forEach(function (key) {
+        form.appendChild(_createElement('input', {
+          type: 'hidden',
+          name: key,
+          value: option.data[key]
+        }));
+      });
+
+      _action(form, function () {
+        return form.submit();
+      });
+    }
   };
 
   /**
@@ -155,7 +194,7 @@
       var args = arguments;
       if (timer) clearTimeout(timer);
       timer = setTimeout(function () {
-        fn.apply(context, args);
+        return fn.apply(context, args);
       }, wait);
     };
   };
@@ -175,7 +214,7 @@
 
       if (now - prev > wait) {
         prev = now;
-        fn.apply(context, args);
+        return fn.apply(context, args);
       }
     };
   };
@@ -195,7 +234,7 @@
    */
 
   var isTypeof = function isTypeof(target, type) {
-    return type === getType(target);
+    return (typeof type === 'string' ? type.toLocaleLowerCase() : type) === getType(target);
   };
 
   /**
