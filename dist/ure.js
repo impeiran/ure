@@ -1,7 +1,7 @@
 
 /**
  * ure
- * version: 0.1.0
+ * version: 0.1.0-beta.1
  * author: impeiran,
  * homepage: https://github.com/impeiran/ure#readme
  */
@@ -165,7 +165,8 @@
       var form = _createElement('form', {
         method: method,
         action: option.url,
-        target: '_blank'
+        target: '_blank',
+        style: 'display:none;'
       });
 
       Object.keys(option.data || {}).forEach(function (key) {

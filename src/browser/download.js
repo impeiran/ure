@@ -47,7 +47,8 @@ const download = (option) => {
     const form = _createElement('form', {
       method,
       action: option.url,
-      target: '_blank'
+      target: '_blank',
+      style: 'display:none;'
     });
 
     Object.keys(option.data || {}).forEach(key => {
