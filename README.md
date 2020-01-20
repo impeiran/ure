@@ -19,9 +19,9 @@ yarn add ure
 
 Get raw:
 
-<a href="<https://raw.githubusercontent.com/impeiran/ure/master/dist/ure.js>">common</a>
+<a href="https://raw.githubusercontent.com/impeiran/ure/master/dist/ure.js" download>common</a>
 
-<a href="<https://raw.githubusercontent.com/impeiran/ure/master/dist/ure.min.js>">min</a>
+<a href="https://raw.githubusercontent.com/impeiran/ure/master/dist/ure.min.js" download>min</a>
 
 ## browser-support
 
