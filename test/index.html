@@ -20,14 +20,14 @@
 
     log('ua: ', ure.ua('i'))
 
-    document.getElementById('downloadBtn').onclick = e => {
+    document.getElementById('downloadBtn').onclick = function e ()  {
       ure.download({
         url: 'https://itdev.gosuncn.net/gmcms/upload/20191225113935861_%E9%9C%80%E5%8D%8F%E8%B0%83%E9%97%AE%E9%A2%98%E8%A1%A8(3).xlsx/download',
         name: '666'
       })
     }
 
-    document.addEventListener('mousemove', ure.throttle(e => {
+    document.addEventListener('mousemove', ure.throttle(function e () {
       document.getElementById('testDebounce').innerHTML = +new Date()
     }, 800))
 
@@ -37,7 +37,7 @@
     log('isTypeof: ', ure.isTypeof(testArr, 'array'))
 
     log('isEmpty: ', ure.isEmpty(1), ure.isEmpty([]), ure.isEmpty({}), ure.isEmpty(undefined), ure.isEmpty(null))
-    log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}), ure.isEmpty(new Set()))
+    log('isEmpty: ', ure.isEmpty(0), ure.isEmpty([1]), ure.isEmpty({a: 2}), ure.isEmpty(function () {}))
 
     const testCloneDeep = {
       field1: 1,

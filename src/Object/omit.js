@@ -13,7 +13,7 @@ const omit = (target, keys) => {
   }
 
   return Object.keys(target).reduce((result, k) => {
-    if (!keys.includes(k)) {
+    if (keys.indexOf(k) == -1) {
       result[k] = target[k];
     }
     return result;
