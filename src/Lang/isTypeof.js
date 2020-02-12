@@ -6,7 +6,8 @@ import getType from './getType'
  * @param {String} type 
  */
 const isTypeof = (target, type) => {
-  return (typeof type === 'string' ? type.toLocaleLowerCase() : type) === getType(target);
+  if (typeof type !== 'string') return false;
+  return type.toLocaleLowerCase() === getType(target);
 };
 
 export default isTypeof

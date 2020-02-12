@@ -3,7 +3,10 @@
  * @param {Any} target
  */
 const isEmpty = (target) => {
-  return [Object, Array].indexOf((target || {}).constructor) > -1 && !Object.keys((target || {})).length;
+  return [Object, Array].indexOf((
+      typeof target == 'number' ? target : target || {}
+    ).constructor) > -1 &&
+    !Object.keys((target || {})).length;
 };
 
 export default isEmpty

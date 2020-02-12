@@ -24,6 +24,8 @@ export const parseUrl = (url) => {
 
     result.query = result.search ? handleSearch(result.search.slice(1)) : {};
 
+    result.hash = result.hash ? result.hash.slice(1) : ''
+
     return result;
   } else {
     return {};
@@ -46,7 +48,7 @@ export const parseQuery = (target) => {
     ? target.slice(searchLoc + 1, hashLoc)
     : target.slice(searchLoc + 1);
 
-  return search ? handleSearch(search) : {};
+  return handleSearch(search);
 };
 
 /**
@@ -58,7 +60,7 @@ export const parseQuery = (target) => {
 export const getUrlParam = (url, key) => {
   if (!url || !key) return null;
 
-  key.replace(/[\[\]]/g, '\\$&');
+  key = key.replace(/[\[\]]/g, '\\$&');
   let regex = new RegExp('[?&]' + key + '(=([^&#]*)|&|#|$)');
   let results = regex.exec(url);
   if (!results) return null;
@@ -85,7 +87,7 @@ export const setUrlParam = (url, key, val) => {
     let hash = '';
     if (url.indexOf('#') !== -1) {
       hash = url.replace(/.*#/, '#');
-      url.replace(/#.*/, '');
+      url = url.replace(/#.*/, '');
     }
     let separator = url.indexOf('?') !== -1 ? '&' : '?';
     return url + separator + key + '=' + encodeURIComponent(val) + hash;
