@@ -6,7 +6,7 @@
 const omit = (target, keys) => {
   if (!Array.isArray(keys)) {
     if (typeof keys === 'string') {
-      keys = keys.split(/,;/);
+      keys = keys.split(/[,;\s]/);
     } else {
       return target;
     }
