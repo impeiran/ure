@@ -1,6 +1,4 @@
 const forEach = (target, cb) => {
-  if (!Array.isArray(target) && typeof cb !== 'function') return;
-
   const len = target.length
   let i = 0
   while(i < len) {
