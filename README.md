@@ -76,7 +76,7 @@ ure.download({
     type: 'post',
     url: 'http://localhost:8989/file',
     data: {
-        contracts: [{ id: 6, type: 'desk' }]
+        contracts: JSON.stringify([{ id: 6, type: 'desk' }])
     }
 })
 ```
