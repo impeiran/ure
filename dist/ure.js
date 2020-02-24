@@ -1,7 +1,7 @@
 
 /**
  * ure
- * version: 0.1.0-beta.1
+ * version: 0.1.0-beta.2
  * author: impeiran,
  * homepage: https://github.com/impeiran/ure#readme
  */
@@ -235,7 +235,8 @@
    */
 
   var isTypeof = function isTypeof(target, type) {
-    return (typeof type === 'string' ? type.toLocaleLowerCase() : type) === getType(target);
+    if (typeof type !== 'string') return false;
+    return type.toLocaleLowerCase() === getType(target);
   };
 
   /**
@@ -243,7 +244,7 @@
    * @param {Any} target
    */
   var isEmpty = function isEmpty(target) {
-    return [Object, Array].indexOf((target || {}).constructor) > -1 && !Object.keys(target || {}).length;
+    return [Object, Array].indexOf((typeof target == 'number' ? target : target || {}).constructor) > -1 && !Object.keys(target || {}).length;
   };
 
   /**
@@ -295,7 +296,6 @@
   };
 
   var forEach = function forEach(target, cb) {
-    if (!Array.isArray(target) && typeof cb !== 'function') return;
     var len = target.length;
     var i = 0;
 
@@ -357,7 +357,7 @@
   var omit = function omit(target, keys) {
     if (!Array.isArray(keys)) {
       if (typeof keys === 'string') {
-        keys = keys.split(/,;/);
+        keys = keys.split(/[,;\s]/);
       } else {
         return target;
       }
@@ -433,7 +433,7 @@
   };
 
   var isMob = function isMob(val) {
-    return /^((\+86)|(86)\s)?(1)\d{10}$/.test(val) || /^0[0-9-]{10,13}$/.test(val);
+    return /^((\+(86)|(86))\s)?(1)\d{10}/.test(val);
   };
   /**
    * 校验电话号码
@@ -450,7 +450,7 @@
    * @param {String} target 
    */
   var isImage = function isImage(target) {
-    return /\.(jpeg|jpg|png|bmp|gif｜wbmp|svg)$/i.test(target);
+    return /\.(jpeg|jpg|png|bmp|gif|wbmp|svg)$/i.test(target);
   };
 
   /**
@@ -468,6 +468,7 @@
         return ret;
       }, {});
       result.query = result.search ? handleSearch(result.search.slice(1)) : {};
+      result.hash = result.hash ? result.hash.slice(1) : '';
       return result;
     } else {
       return {};
@@ -487,7 +488,7 @@
 
     var hashLoc = findSign(target, '#');
     var search = ~hashLoc && hashLoc > searchLoc ? target.slice(searchLoc + 1, hashLoc) : target.slice(searchLoc + 1);
-    return search ? handleSearch(search) : {};
+    return handleSearch(search);
   };
   /**
    * 获取url的参数
@@ -498,7 +499,7 @@
 
   var getUrlParam = function getUrlParam(url, key) {
     if (!url || !key) return null;
-    key.replace(/[\[\]]/g, '\\$&');
+    key = key.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + key + '(=([^&#]*)|&|#|$)');
     var results = regex.exec(url);
     if (!results) return null;
@@ -524,7 +525,7 @@
 
       if (url.indexOf('#') !== -1) {
         hash = url.replace(/.*#/, '#');
-        url.replace(/#.*/, '');
+        url = url.replace(/#.*/, '');
       }
 
       var separator = url.indexOf('?') !== -1 ? '&' : '?';
