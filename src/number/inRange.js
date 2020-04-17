@@ -8,10 +8,10 @@ const inRange = (left, right, target) => {
   if ([left, right, target].some(item => typeof item !== 'number')) { return false }
 
   if (left > right) {
-    [left, right] = [right, left];
+    [left, right] = [right, left]
   }
 
-  return target >= left && target <= right;
+  return target >= left && target <= right
 }
 
-export default inRange;
+export default inRange

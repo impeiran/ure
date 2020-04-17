@@ -1,9 +1,9 @@
 /**
  * 检测是否为数值
- * @param {Any} target 
+ * @param {Any} target
  */
 const isNumber = (target) => {
-  return /^\d+(\.\d)?$/.test(target);
+  return /^\d+(\.\d)?$/.test(target)
 }
 
-export default isNumber;
+export default isNumber

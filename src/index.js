@@ -1,5 +1,4 @@
-import ua from './browser/ua'
-import { 
+import ua, {
   isMobile,
   isPC,
   isIE,
@@ -10,7 +9,7 @@ import {
   isWeixin,
   isQQ,
   isDingTalk
- } from './browser/ua'
+} from './browser/ua'
 
 import download from './browser/download'
 import debounce from './browser/debounce'
@@ -43,7 +42,6 @@ import {
   getUrlParam,
   setUrlParam
 } from './url/index'
-
 
 export default {
   ua,

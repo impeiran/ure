@@ -4,18 +4,18 @@
  * @param {Number} wait 等待时长 单位ms
  */
 const debounce = (fn, wait) => {
-  let timer;
+  let timer
 
   return function () {
-    const context = this;
-    const args = arguments;
+    const context = this
+    const args = arguments
 
-    if (timer) clearTimeout(timer);
+    if (timer) clearTimeout(timer)
 
     timer = setTimeout(() => {
-      return fn.apply(context, args);
-    }, wait);
-  };
+      return fn.apply(context, args)
+    }, wait)
+  }
 }
 
-export default debounce;
+export default debounce

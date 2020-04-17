@@ -6,18 +6,18 @@
 const omit = (target, keys) => {
   if (!Array.isArray(keys)) {
     if (typeof keys === 'string') {
-      keys = keys.split(/[,;\s]/);
+      keys = keys.split(/[,;\s]/)
     } else {
-      return target;
+      return target
     }
   }
 
   return Object.keys(target).reduce((result, k) => {
-    if (keys.indexOf(k) == -1) {
-      result[k] = target[k];
+    if (keys.indexOf(k) === -1) {
+      result[k] = target[k]
     }
-    return result;
-  }, {});
+    return result
+  }, {})
 }
 
 export default omit

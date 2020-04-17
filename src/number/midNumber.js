@@ -4,13 +4,13 @@
  * @param {Number} right 右边界值
  */
 const midNumber = (left, right) => {
-  if (typeof left !== 'number' || typeof right !== 'number') return NaN;
+  if (typeof left !== 'number' || typeof right !== 'number') return NaN
 
   if (left > right) {
     [left, right] = [right, left]
   }
 
-  return ((right - left) / 2) + left;
+  return ((right - left) / 2) + left
 }
 
-export default midNumber;
+export default midNumber
