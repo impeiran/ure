@@ -1,7 +1,7 @@
 
 /**
  * ure
- * version: 0.1.0-beta.2
+ * version: 0.1.0
  * author: impeiran,
  * homepage: https://github.com/impeiran/ure#readme
  */
@@ -51,6 +51,8 @@
   };
 
   function _typeof(obj) {
+    "@babel/helpers - typeof";
+
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
       _typeof = function (obj) {
         return typeof obj;
@@ -549,7 +551,7 @@
     }, {});
   }
 
-  var ure = {
+  var index = {
     ua: ua,
     isMobile: isMobile,
     isPC: isPC,
@@ -586,6 +588,6 @@
     setUrlParam: setUrlParam
   };
 
-  return ure;
+  return index;
 
 })));

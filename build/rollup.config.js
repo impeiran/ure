@@ -1,6 +1,3 @@
-import resolve from 'rollup-plugin-node-resolve';
-import json from 'rollup-plugin-json';
-import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 
@@ -16,14 +13,7 @@ const banner = `
 `;
 
 const plugins = [
-  json(),
-  resolve(),
-  commonjs(),
-  babel({
-    exclude: 'node_modules/**',
-    runtimeHelpers: true,
-    extensions: ['.js']
-  })
+  babel()
 ];
 
 export default {
@@ -39,16 +29,9 @@ export default {
       name,
       banner,
       file: `dist/${name}.min.js`,
-      format: 'iife',
-      plugins: [terser({
-        output: {
-          comments(node, comment) {
-            if (comment.type === 'comment2') {
-              return /version/i.test(comment.value);
-            }
-          }
-        }
-      })]
+      format: 'umd',
+      sourcemap: true,
+      plugins: [terser()]
     }
   ],
   plugins

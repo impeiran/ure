@@ -42,9 +42,10 @@ import {
   parseQuery,
   getUrlParam,
   setUrlParam
-} from './url'
+} from './url/index'
 
-const ure = {
+
+export default {
   ua,
   isMobile,
   isPC,
@@ -87,5 +88,3 @@ const ure = {
   getUrlParam,
   setUrlParam
 }
-
-export default ure
