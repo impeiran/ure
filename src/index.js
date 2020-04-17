@@ -11,7 +11,6 @@ import ua, {
   isDingTalk
 } from './browser/ua'
 
-import download from './browser/download'
 import debounce from './browser/debounce'
 import throttle from './browser/throttle'
 
@@ -56,7 +55,6 @@ export default {
   isQQ,
   isDingTalk,
 
-  download,
   debounce,
   throttle,
 

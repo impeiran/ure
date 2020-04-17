@@ -50,6 +50,109 @@
     return /dingtalk/.test(ua('i'));
   };
 
+  /**
+   * 函数防抖
+   * @param {Function} fn 需要截流的函数
+   * @param {Number} wait 等待时长 单位ms
+   */
+  var debounce = function debounce(fn, wait) {
+    var timer;
+    return function () {
+      var context = this;
+      var args = arguments;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () {
+        return fn.apply(context, args);
+      }, wait);
+    };
+  };
+
+  /**
+   * 节流
+   * @param {Function} fn 被节流的函数
+   * @param {Number} wait 时间间隔
+   */
+  var throttle = function throttle(fn, wait) {
+    wait = wait || 0;
+    var prev = 0;
+    return function () {
+      var context = this;
+      var args = arguments;
+      var now = +new Date();
+
+      if (now - prev > wait) {
+        prev = now;
+        return fn.apply(context, args);
+      }
+    };
+  };
+
+  /**
+   * string 返回type
+   * @param {Any} target
+   */
+  var getType = function getType(target) {
+    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
+  };
+
+  /**
+   * Boolean 返回跟type的比较
+   * @param {Any} target
+   * @param {String} type
+   */
+
+  var isTypeof = function isTypeof(target, type) {
+    if (typeof type !== 'string') return false;
+    return type.toLocaleLowerCase() === getType(target);
+  };
+
+  /**
+   * 判空
+   * @param {Any} target
+   */
+  var isEmpty = function isEmpty(target) {
+    return [Object, Array].indexOf((typeof target === 'number' ? target : target || {}).constructor) > -1 && !Object.keys(target || {}).length;
+  };
+
+  /**
+   * 判断是否在范围内
+   * @param {Number} left 左边界
+   * @param {Number} right 右边界
+   * @param {Number} target 目标值
+   */
+  var inRange = function inRange(left, right, target) {
+    if ([left, right, target].some(function (item) {
+      return typeof item !== 'number';
+    })) {
+      return false;
+    }
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return target >= left && target <= right;
+  };
+
+  /**
+   * 取中间值
+   * @param {Number} left 左边界值
+   * @param {Number} right 右边界值
+   */
+  var midNumber = function midNumber(left, right) {
+    if (typeof left !== 'number' || typeof right !== 'number') return NaN;
+
+    if (left > right) {
+      var _ref = [right, left];
+      left = _ref[0];
+      right = _ref[1];
+    }
+
+    return (right - left) / 2 + left;
+  };
+
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
@@ -116,181 +219,8 @@
   }
 
   /**
-   * 下载Url链接的资源
-   * @param {Object | String} option 配置项或者url
-   */
-  var download = function download(option) {
-    if (!option) return false;
-    var defaultOption = {
-      method: 'get',
-      name: ''
-    };
-
-    if (typeof option === 'string') {
-      option = _objectSpread2({}, defaultOption, {
-        url: option
-      });
-    } else {
-      option = _objectSpread2({}, defaultOption, {}, option);
-    }
-
-    if (!option.url) return false;
-
-    var _createElement = function _createElement(tagName, attrs) {
-      var el = document.createElement(tagName);
-      Object.keys(attrs).forEach(function (key) {
-        el.setAttribute(key, attrs[key]);
-      });
-      return el;
-    };
-
-    var _action = function _action(el, trigger) {
-      document.body.appendChild(el);
-      trigger();
-      document.body.removeChild(el);
-    };
-
-    var method = option.method ? option.method.toLowerCase() : '';
-
-    if (method === 'get') {
-      var a = _createElement('a', {
-        href: option.url,
-        download: option.name,
-        target: '_blank',
-        style: 'display:none;'
-      });
-
-      _action(a, function () {
-        return a.click();
-      });
-    } else if (method === 'post') {
-      var form = _createElement('form', {
-        method: method,
-        action: option.url,
-        target: '_blank',
-        style: 'display:none;'
-      });
-
-      Object.keys(option.data || {}).forEach(function (key) {
-        form.appendChild(_createElement('input', {
-          type: 'hidden',
-          name: key,
-          value: option.data[key]
-        }));
-      });
-
-      _action(form, function () {
-        return form.submit();
-      });
-    }
-  };
-
-  /**
-   * 函数防抖
-   * @param {Function} fn 需要截流的函数
-   * @param {Number} wait 等待时长 单位ms
-   */
-  var debounce = function debounce(fn, wait) {
-    var timer;
-    return function () {
-      var context = this;
-      var args = arguments;
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(function () {
-        return fn.apply(context, args);
-      }, wait);
-    };
-  };
-
-  /**
-   * 节流
-   * @param {Function} fn 被节流的函数
-   * @param {Number} wait 时间间隔 
-   */
-  var throttle = function throttle(fn, wait) {
-    wait = wait || 0;
-    var prev = 0;
-    return function () {
-      var context = this;
-      var args = arguments;
-      var now = +new Date();
-
-      if (now - prev > wait) {
-        prev = now;
-        return fn.apply(context, args);
-      }
-    };
-  };
-
-  /**
-   * string 返回type
-   * @param {Any} target 
-   */
-  var getType = function getType(target) {
-    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
-  };
-
-  /**
-   * Boolean 返回跟type的比较
-   * @param {Any} target 
-   * @param {String} type 
-   */
-
-  var isTypeof = function isTypeof(target, type) {
-    if (typeof type !== 'string') return false;
-    return type.toLocaleLowerCase() === getType(target);
-  };
-
-  /**
-   * 判空
-   * @param {Any} target
-   */
-  var isEmpty = function isEmpty(target) {
-    return [Object, Array].indexOf((typeof target == 'number' ? target : target || {}).constructor) > -1 && !Object.keys(target || {}).length;
-  };
-
-  /**
-   * 判断是否在范围内
-   * @param {Number} left 左边界
-   * @param {Number} right 右边界
-   * @param {Number} target 目标值
-   */
-  var inRange = function inRange(left, right, target) {
-    if ([left, right, target].some(function (item) {
-      return typeof item !== 'number';
-    })) {
-      return false;
-    }
-
-    if (left > right) {
-      var _ref = [right, left];
-      left = _ref[0];
-      right = _ref[1];
-    }
-
-    return target >= left && target <= right;
-  };
-
-  /**
-   * 取中间值
-   * @param {Number} left 左边界值
-   * @param {Number} right 右边界值
-   */
-  var midNumber = function midNumber(left, right) {
-    if (typeof left !== 'number' || typeof right !== 'number') return NaN;
-
-    if (left > right) {
-      var _ref = [right, left];
-      left = _ref[0];
-      right = _ref[1];
-    }
-
-    return (right - left) / 2 + left;
-  };
-
-  /**
    * 浅拷贝
-   * @param {Object} target 
+   * @param {Object} target
    */
   var clone = function clone(target) {
     if (target == null || _typeof(target) !== 'object') return target;
@@ -307,7 +237,7 @@
   };
   /**
    * 深拷贝 (不拷贝：函数、正则对象、日期对象...)
-   * @param {Object} target 
+   * @param {Object} target
    */
 
 
@@ -334,8 +264,8 @@
   /**
    * 根据路径获取对象中的值
    * @param {Object} target
-   * @param {String} path 
-   * @param {Any} defaultValue 
+   * @param {String} path
+   * @param {Any} defaultValue
    */
   var getValue = function getValue(target, path, defaultValue) {
     if (target === null || target === undefined) return defaultValue;
@@ -366,7 +296,7 @@
     }
 
     return Object.keys(target).reduce(function (result, k) {
-      if (keys.indexOf(k) == -1) {
+      if (keys.indexOf(k) === -1) {
         result[k] = target[k];
       }
 
@@ -375,7 +305,7 @@
   };
 
   /**
-   * 
+   *
    * @param {Number} min 下限
    * @param {Number} max 上限
    * @param {Boolean} floor 向下取整
@@ -415,7 +345,7 @@
   var REG_EMAIL = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
   /**
    * 校验邮箱地址
-   * @param {String} target 
+   * @param {String} target
    */
 
   var isEmail = function isEmail(target) {
@@ -424,7 +354,7 @@
 
   /**
    * 检测是否为数值
-   * @param {Any} target 
+   * @param {Any} target
    */
   var isNumber = function isNumber(target) {
     return /^\d+(\.\d)?$/.test(target);
@@ -439,7 +369,7 @@
   };
   /**
    * 校验电话号码
-   * @param {String} target 
+   * @param {String} target
    */
 
 
@@ -449,7 +379,7 @@
 
   /**
    * 判断是否图片
-   * @param {String} target 
+   * @param {String} target
    */
   var isImage = function isImage(target) {
     return /\.(jpeg|jpg|png|bmp|gif|wbmp|svg)$/i.test(target);
@@ -457,7 +387,7 @@
 
   /**
    * 转换url
-   * @param {String} url 
+   * @param {String} url
    */
   var parseUrl = function parseUrl(url) {
     if (typeof url !== 'string') return null;
@@ -478,13 +408,13 @@
   };
   /**
    * 转换query对象
-   * @param {String} target 
+   * @param {String} target
    */
 
   var parseQuery = function parseQuery(target) {
     var searchLoc = findSign(target, '?');
 
-    if (searchLoc == -1) {
+    if (searchLoc === -1) {
       return {};
     }
 
@@ -494,13 +424,14 @@
   };
   /**
    * 获取url的参数
-   * @param {String} url 
-   * @param {String} key 
+   * @param {String} url
+   * @param {String} key
    * From https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
    */
 
   var getUrlParam = function getUrlParam(url, key) {
-    if (!url || !key) return null;
+    if (!url || !key) return null; // eslint-disable-next-line no-useless-escape
+
     key = key.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + key + '(=([^&#]*)|&|#|$)');
     var results = regex.exec(url);
@@ -510,9 +441,9 @@
   };
   /**
    * 设置url的参数
-   * @param {String} url 
-   * @param {String} key 
-   * @param {String} val 
+   * @param {String} url
+   * @param {String} key
+   * @param {String} val
    * From https://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
    */
 
@@ -563,7 +494,6 @@
     isWeixin: isWeixin,
     isQQ: isQQ,
     isDingTalk: isDingTalk,
-    download: download,
     debounce: debounce,
     throttle: throttle,
     getType: getType,
