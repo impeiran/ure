@@ -21,6 +21,7 @@ import isEmpty from './lang/isEmpty'
 import inRange from './number/inRange'
 import midNumber from './number/midNumber'
 
+import extend from './object/extend'
 import clone from './object/clone'
 import cloneDeep from './object/cloneDeep'
 import getValue from './object/getValue'
@@ -35,12 +36,10 @@ import isNumber from './reg/isNumber'
 import isPhone from './reg/isPhone'
 import isImage from './reg/isImage'
 
-import {
-  parseUrl,
-  parseQuery,
-  getUrlParam,
-  setUrlParam
-} from './url/index'
+import parseUrl from './url/parseUrl'
+import parseQuery from './url/parseQuery'
+import getUrlParam from './url/getUrlParam'
+import setUrlParam from './url/setUrlParam'
 
 export default {
   ua,
@@ -65,6 +64,7 @@ export default {
   inRange,
   midNumber,
 
+  extend,
   clone,
   cloneDeep,
   getValue,

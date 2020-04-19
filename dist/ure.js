@@ -1,4 +1,3 @@
-
 /**
  * ure
  * version: 0.1.0
@@ -153,6 +152,29 @@
     return (right - left) / 2 + left;
   };
 
+  /**
+   * 拓展对象
+   * @param {Object}
+   * @returns Object
+   */
+  var extend = function extend() {
+    var _arguments = arguments;
+    if (!arguments.length) return {};
+    var target = arguments[0];
+
+    var _loop = function _loop(i, len) {
+      Object.keys(_arguments[i]).forEach(function (k) {
+        target[k] = _arguments[i][k];
+      });
+    };
+
+    for (var i = 1, len = arguments.length; i < len; ++i) {
+      _loop(i);
+    }
+
+    return target;
+  };
+
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
@@ -169,62 +191,14 @@
     return _typeof(obj);
   }
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
-  }
-
   /**
    * 浅拷贝
    * @param {Object} target
    */
+
   var clone = function clone(target) {
     if (target == null || _typeof(target) !== 'object') return target;
-    return _objectSpread2({}, target);
+    return extend({}, target);
   };
 
   var forEach = function forEach(target, cb) {
@@ -385,50 +359,59 @@
     return /\.(jpeg|jpg|png|bmp|gif|wbmp|svg)$/i.test(target);
   };
 
+  function handleSearch(target) {
+    return target.split('&').reduce(function (ret, item) {
+      var keyValue = ~item.indexOf('=') ? item.split('=') : [];
+
+      if (keyValue[0]) {
+        ret[keyValue[0]] = keyValue[1];
+      }
+
+      return ret;
+    }, {});
+  }
+
   /**
    * 转换url
    * @param {String} url
    */
+
   var parseUrl = function parseUrl(url) {
     if (typeof url !== 'string') return null;
-
-    if (document) {
-      var a = document.createElement('a');
-      a.href = url;
-      var result = ['protocol', 'host', 'origin', 'port', 'pathname', 'search', 'hash'].reduce(function (ret, k) {
-        ret[k] = a[k];
-        return ret;
-      }, {});
-      result.query = result.search ? handleSearch(result.search.slice(1)) : {};
-      result.hash = result.hash ? result.hash.slice(1) : '';
-      return result;
-    } else {
-      return {};
-    }
+    var a = document.createElement('a');
+    a.href = url;
+    var result = ['protocol', 'host', 'origin', 'port', 'pathname', 'search', 'hash'].reduce(function (ret, k) {
+      ret[k] = a[k];
+      return ret;
+    }, {});
+    result.query = result.search ? handleSearch(result.search.slice(1)) : {};
+    result.hash = result.hash ? result.hash.slice(1) : '';
+    return result;
   };
+
   /**
    * 转换query对象
    * @param {String} target
    */
 
   var parseQuery = function parseQuery(target) {
-    var searchLoc = findSign(target, '?');
+    var searchLoc = (target || '').indexOf('?');
 
     if (searchLoc === -1) {
       return {};
     }
 
-    var hashLoc = findSign(target, '#');
+    var hashLoc = (target || '').indexOf('#');
     var search = ~hashLoc && hashLoc > searchLoc ? target.slice(searchLoc + 1, hashLoc) : target.slice(searchLoc + 1);
     return handleSearch(search);
   };
+
   /**
    * 获取url的参数
    * @param {String} url
    * @param {String} key
    * From https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
    */
-
   var getUrlParam = function getUrlParam(url, key) {
     if (!url || !key) return null; // eslint-disable-next-line no-useless-escape
 
@@ -439,6 +422,7 @@
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   };
+
   /**
    * 设置url的参数
    * @param {String} url
@@ -446,7 +430,6 @@
    * @param {String} val
    * From https://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
    */
-
   var setUrlParam = function setUrlParam(url, key, val) {
     if (!url || !key) return url;
     var re = new RegExp('([?|&])' + key + '=.*?(&|#|$)', 'i');
@@ -465,22 +448,6 @@
       return url + separator + key + '=' + encodeURIComponent(val) + hash;
     }
   };
-
-  function findSign(target, sign) {
-    return (target || '').indexOf(sign);
-  }
-
-  function handleSearch(target) {
-    return target.split('&').reduce(function (ret, item) {
-      var keyValue = ~item.indexOf('=') ? item.split('=') : [];
-
-      if (keyValue[0]) {
-        ret[keyValue[0]] = keyValue[1];
-      }
-
-      return ret;
-    }, {});
-  }
 
   var index = {
     ua: ua,
@@ -501,6 +468,7 @@
     isEmpty: isEmpty,
     inRange: inRange,
     midNumber: midNumber,
+    extend: extend,
     clone: clone,
     cloneDeep: cloneDeep,
     getValue: getValue,
