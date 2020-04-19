@@ -14,9 +14,9 @@ import ua, {
 import debounce from './browser/debounce'
 import throttle from './browser/throttle'
 
-import isTypeof from './lang/isTypeof'
-import getType from './lang/getType'
-import isEmpty from './lang/isEmpty'
+import isTypeof from './nature/isTypeof'
+import getType from './nature/getType'
+import isEmpty from './nature/isEmpty'
 
 import inRange from './number/inRange'
 import midNumber from './number/midNumber'
