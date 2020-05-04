@@ -3,6 +3,7 @@ import extend from '../src/object/extend'
 import cloneDeep from '../src/object/cloneDeep'
 import getValue from '../src/object/getValue'
 import omit from '../src/object/omit'
+import isEqual from '../src/object/isEqual'
 
 describe('OBJECT MODULE', () => {
   const target = {
@@ -101,5 +102,44 @@ describe('OBJECT MODULE', () => {
 
     expect(cloneDeep('123')).toEqual('123')
     expect(cloneDeep(null)).toBeNull()
+  })
+
+  test('isEqual', () => {
+    expect(isEqual(6, 6)).toBe(true)
+
+    expect(isEqual(NaN, NaN)).toBe(true)
+
+    expect(isEqual(undefined, null)).toBe(false)
+
+    expect(isEqual({
+      left: 666,
+      right: 999,
+      myself: {
+        love: 777
+      }
+    }, {
+      left: 666,
+      right: 999,
+      myself: {
+        love: 777,
+        money: 0
+      }
+    })).toBe(false)
+
+    expect(isEqual([
+      1, 2, 3
+    ], [
+      4, 6
+    ])).toBe(false)
+
+    expect(isEqual([1, 2, 3], [1, 2, 3])).toBe(true)
+
+    expect(isEqual({
+      a: 1,
+      b: 2
+    }, {
+      a: 1,
+      b: 2
+    })).toBe(true)
   })
 })
