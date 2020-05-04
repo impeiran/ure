@@ -1,15 +1,14 @@
-import ua, {
-  isMobile,
-  isPC,
-  isIE,
-  isEdge,
-  isIOS,
-  isIPad,
-  isAndroid,
-  isWeixin,
-  isQQ,
-  isDingTalk
-} from './browser/ua'
+import ua from './browser/ua'
+import isAndroid from './browser/isAndroid'
+import isDingTalk from './browser/isDingTalk'
+import isEdge from './browser/isEdge'
+import isIE from './browser/isIE'
+import isIOS from './browser/isIOS'
+import isIpad from './browser/isIpad'
+import isMobile from './browser/isMobile'
+import isPC from './browser/isPC'
+import isQQ from './browser/isQQ'
+import isWeixin from './browser/isWeixin'
 
 import debounce from './browser/debounce'
 import throttle from './browser/throttle'
@@ -26,6 +25,12 @@ import clone from './object/clone'
 import cloneDeep from './object/cloneDeep'
 import getValue from './object/getValue'
 import omit from './object/omit'
+import isEqual from './object/isEqual'
+
+import chunk from './array/chunk'
+import remove from './array/remove'
+import removeIndex from './array/removeIndex'
+import shuffle from './array/shuffle'
 
 import random from './other/random'
 import randomColor from './other/randomColor'
@@ -41,6 +46,10 @@ import parseQuery from './url/parseQuery'
 import getUrlParam from './url/getUrlParam'
 import setUrlParam from './url/setUrlParam'
 
+import getCookie from './cookie/getCookie'
+import setCookie from './cookie/setCookie'
+import parseCookie from './cookie/parseCookie'
+
 export default {
   ua,
   isMobile,
@@ -48,7 +57,7 @@ export default {
   isIE,
   isEdge,
   isIOS,
-  isIPad,
+  isIpad,
   isAndroid,
   isWeixin,
   isQQ,
@@ -69,6 +78,11 @@ export default {
   cloneDeep,
   getValue,
   omit,
+  isEqual,
+  chunk,
+  remove,
+  removeIndex,
+  shuffle,
 
   random,
   randomColor,
@@ -78,6 +92,10 @@ export default {
   isNumber,
   isPhone,
   isImage,
+
+  getCookie,
+  setCookie,
+  parseCookie,
 
   parseUrl,
   parseQuery,

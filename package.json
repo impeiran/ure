@@ -4,10 +4,13 @@
   "description": "A lib with some utility functions used frequently",
   "main": "dist/ure.js",
   "scripts": {
+    "dev": "rollup -w -c ./build/rollup.config.js",
+    "build": "npm run build:umd && npm run build:cjs && npm run build:esm",
+    "build:umd": "rollup -c ./build/umd.build.js",
+    "build:cjs": "rollup -c ./build/cjs.build.js",
+    "build:esm": "rollup -c ./build/esm.build.js",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint ./src --ext .js --fix",
-    "build": "rollup -c ./build/rollup.config.js",
-    "dev": "rollup -w -c ./build/rollup.config.js",
     "test": "jest --config jest.config.js"
   },
   "repository": {
@@ -39,6 +42,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "glob": "^7.1.6",
     "husky": "^4.2.5",
     "jest": "^25.1.0",
     "lint-staged": "^10.1.3",

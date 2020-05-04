@@ -15,39 +15,48 @@
   /**
    * ua信息
    */
-  var ua = function ua(sign) {
+  var ua$1 = function ua(sign) {
     return navigator ? sign ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent : null;
+  };
+
+  var isAndroid = function isAndroid() {
+    return /android/.test(ua$1('i'));
+  };
+
+  var isDingTalk = function isDingTalk() {
+    return /dingtalk/.test(ua$1('i'));
+  };
+
+  var isEdge = function isEdge() {
+    return /Edge/.test(ua$1());
+  };
+
+  var isIE = function isIE() {
+    return !!window.ActiveXObject || 'ActiveXObject' in window;
+  };
+
+  var isIOS = function isIOS() {
+    return /ios|iphone|ipad|ipod/.test(ua$1('i'));
+  };
+
+  var isIpad = function isIpad() {
+    return /ipad/.test(ua$1('i'));
   };
 
   var isMobile = function isMobile() {
     return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/.test(ua('i'));
   };
+
   var isPC = function isPC() {
     return !isMobile();
   };
-  var isIE = function isIE() {
-    return !!window.ActiveXObject || 'ActiveXObject' in window;
-  };
-  var isEdge = function isEdge() {
-    return /Edge/.test(ua());
-  };
-  var isIOS = function isIOS() {
-    return /ios|iphone|ipad|ipod/.test(ua('i'));
-  };
-  var isIPad = function isIPad() {
-    return /ipad/.test(ua('i'));
-  };
-  var isAndroid = function isAndroid() {
-    return /android/.test(ua('i'));
-  };
-  var isWeixin = function isWeixin() {
-    return /MicroMessenger/i.test(ua());
-  };
+
   var isQQ = function isQQ() {
-    return /qq\//.test(ua('i'));
+    return /qq\//.test(ua$1('i'));
   };
-  var isDingTalk = function isDingTalk() {
-    return /dingtalk/.test(ua('i'));
+
+  var isWeixin = function isWeixin() {
+    return /MicroMessenger/i.test(ua$1());
   };
 
   /**
@@ -92,7 +101,7 @@
    * @param {Any} target
    */
   var getType = function getType(target) {
-    return /^\[object\s(.*)\]$/.exec(Object.prototype.toString.call(target))[1].toLowerCase();
+    return Object.prototype.toString.call(target).slice(8, -1).toLowerCase();
   };
 
   /**
@@ -280,9 +289,95 @@
   };
 
   /**
+   * A isEqual to B
+   * @param {Any} left
+   * @param {Any} right
+   */
+  var isEqual = function isEqual(left, right) {
+    if (_typeof(left) !== _typeof(right)) return false; // both left and right are NaN
+    // eslint-disable-next-line no-self-compare
+
+    if (left !== left && right !== right) return true;
+    if (_typeof(left) !== 'object' && _typeof(right) !== 'object') return left === right;
+
+    if (Array.isArray(left) && Array.isArray(right)) {
+      if (left.length !== right.length) return false;
+      return left.every(function (leftItem, index) {
+        return isEqual(leftItem, right[index]);
+      });
+    }
+
+    var leftKeys = Object.keys(left);
+    var rightKeys = Object.keys(right);
+    if (leftKeys.length !== rightKeys.length) return false;
+    return leftKeys.every(function (key) {
+      return right.hasOwnProperty(key) && isEqual(left[key], right[key]);
+    });
+  };
+
+  /**
+   * slice the array into some chunks with length of num
+   * @param {Array} list
+   * @param {Number} num
+   */
+  var chunk = function chunk(list, num) {
+    if (!list || !list.length) return [];
+    if (!num) return list;
+    var result = [];
+
+    for (var i = 0, len = list.length; i < len; i += num) {
+      var index = i;
+      var ceil = Math.min(i + num, len);
+      var slicing = [];
+
+      while (index < ceil) {
+        slicing.push(list[index++]);
+      }
+
+      result.push(slicing);
+    }
+
+    return result;
+  };
+
+  /**
+   * remove items from the list, return new one
+   * @param {Array} list
+   * @param {...*} [values]
    *
-   * @param {Number} min 下限
-   * @param {Number} max 上限
+   */
+  var remove = function remove(list) {
+    for (var _len = arguments.length, values = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      values[_key - 1] = arguments[_key];
+    }
+
+    if (!list || !list.length) return [];
+    return list.filter(function (item) {
+      return values.indexOf(item) === -1;
+    });
+  };
+
+  /**
+   * remove items from the list by index, return new one
+   * @param {Array} list
+   * @param {...*} [indexes]
+   *
+   */
+  var removeIndex = function removeIndex(list) {
+    for (var _len = arguments.length, indexes = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      indexes[_key - 1] = arguments[_key];
+    }
+
+    if (!list || !list.length) return [];
+    return list.filter(function (_, index) {
+      return indexes.indexOf(index) === -1;
+    });
+  };
+
+  /**
+   *
+   * @param {Number} min 下限(包含)
+   * @param {Number} max 上限(不包含)
    * @param {Boolean} floor 向下取整
    */
   var random = function random() {
@@ -291,6 +386,26 @@
     var floor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
     var result = Math.random() * (max - min) + min;
     return floor ? Math.floor(result) : result;
+  };
+
+  /**
+   * shuffle the list
+   * @param {Array} list
+   */
+
+  var shuffle = function shuffle(list) {
+    if (!list || !list.length) return [];
+    list = list.slice(0);
+    var l = list.length;
+
+    while (l--) {
+      var i = random(0, l);
+      var temp = list[l];
+      list[l] = list[i];
+      list[i] = temp;
+    }
+
+    return list;
   };
 
   /**
@@ -396,13 +511,14 @@
    */
 
   var parseQuery = function parseQuery(target) {
-    var searchLoc = (target || '').indexOf('?');
+    if (typeof target !== 'string') return {};
+    var searchLoc = target.indexOf('?');
 
     if (searchLoc === -1) {
       return {};
     }
 
-    var hashLoc = (target || '').indexOf('#');
+    var hashLoc = target.indexOf('#');
     var search = ~hashLoc && hashLoc > searchLoc ? target.slice(searchLoc + 1, hashLoc) : target.slice(searchLoc + 1);
     return handleSearch(search);
   };
@@ -450,14 +566,87 @@
     }
   };
 
+  /**
+   * get cookie
+   * @param {String} name
+   */
+  var getCookie = function getCookie(name) {
+    if (!name) return '';
+    var cookie = document.cookie;
+    var cookieName = encodeURIComponent(name) + '=';
+    var cookieStart = cookie.indexOf(cookieName);
+    var result;
+
+    if (cookieStart > -1) {
+      var cookieEnd = cookie.indexOf(';', cookieStart);
+
+      if (cookieEnd === -1) {
+        cookieEnd = cookie.length;
+      }
+
+      result = decodeURIComponent(cookie.substring(cookieStart + cookieName.length, cookieEnd));
+    }
+
+    return result;
+  };
+
+  /**
+   * set cookie
+   * @param {String} name
+   * @param {String} value
+   * @param {Object} option
+   */
+  var setCookie = function setCookie(name, value) {
+    var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var cookieText = "".concat(encodeURIComponent(name), "=").concat(encodeURIComponent(value));
+    var expires = option.expires,
+        path = option.path,
+        domain = option.domain,
+        secure = option.secure;
+
+    if (expires) {
+      var expireText = expires instanceof Date ? expires.toGMTString() : expires;
+      cookieText += "; expires=".concat(expireText);
+    }
+
+    if (path) {
+      cookieText += "; path=".concat(path);
+    }
+
+    if (domain) {
+      cookieText += "; domain=".concat(domain);
+    }
+
+    if (secure) {
+      cookieText += '; secure';
+    }
+
+    document.cookie = cookieText;
+  };
+
+  /**
+   * parse cookie string into object
+   * @param {String} str
+   * https://www.30secondsofcode.org/js/s/parse-cookie/
+   */
+  var parseCookie = function parseCookie() {
+    var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    return str.split(';').map(function (v) {
+      return v.split('=');
+    }).reduce(function (acc, v) {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+  };
+
   var index = {
-    ua: ua,
+    ua: ua$1,
     isMobile: isMobile,
     isPC: isPC,
     isIE: isIE,
     isEdge: isEdge,
     isIOS: isIOS,
-    isIPad: isIPad,
+    isIpad: isIpad,
     isAndroid: isAndroid,
     isWeixin: isWeixin,
     isQQ: isQQ,
@@ -474,6 +663,11 @@
     cloneDeep: cloneDeep,
     getValue: getValue,
     omit: omit,
+    isEqual: isEqual,
+    chunk: chunk,
+    remove: remove,
+    removeIndex: removeIndex,
+    shuffle: shuffle,
     random: random,
     randomColor: randomColor,
     randomKey: randomKey,
@@ -481,6 +675,9 @@
     isNumber: isNumber,
     isPhone: isPhone,
     isImage: isImage,
+    getCookie: getCookie,
+    setCookie: setCookie,
+    parseCookie: parseCookie,
     parseUrl: parseUrl,
     parseQuery: parseQuery,
     getUrlParam: getUrlParam,
