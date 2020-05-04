@@ -1,13 +1,12 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jest/globals": true
     },
     "extends": "standard",
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
+    "plugins": ['jest'],
     "rules": {
+        "no-prototype-builtins": 0
     }
 };

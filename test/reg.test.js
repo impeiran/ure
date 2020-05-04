@@ -23,16 +23,15 @@ describe('REG_MODULE', () => {
     expect(isNumber(17)).toBe(true)
     expect(isNumber('aa')).toBe(false)
   })
-  
-  
+
   test('test phone reg', () => {
-    expect(isPhone('020-86601234')).toBe(true);
-    expect(isPhone('020-866012342')).toBe(false);
-  
-    expect(isPhone('13247479090')).toBe(true);
-    expect(isPhone('+86 13247479090')).toBe(true);
-    expect(isPhone('86 13247479090')).toBe(true);
-  
-    expect(isPhone('86 1324740')).toBe(false);
+    expect(isPhone('020-86601234')).toBe(true)
+    expect(isPhone('020-866012342')).toBe(false)
+
+    expect(isPhone('13247479090')).toBe(true)
+    expect(isPhone('+86 13247479090')).toBe(true)
+    expect(isPhone('86 13247479090')).toBe(true)
+
+    expect(isPhone('86 1324740')).toBe(false)
   })
 })

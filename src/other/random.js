@@ -1,7 +1,7 @@
 /**
  *
- * @param {Number} min 下限
- * @param {Number} max 上限
+ * @param {Number} min 下限(包含)
+ * @param {Number} max 上限(不包含)
  * @param {Boolean} floor 向下取整
  */
 const random = (min = 0, max = 1, floor = true) => {

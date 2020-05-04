@@ -11,7 +11,7 @@ describe('OTHER MODULE', () => {
     expect(random(0, 1, false)).toBeGreaterThan(0.00000001)
     expect(random(undefined, undefined, false)).toBeGreaterThan(1e-17)
   })
-  
+
   test('random key', () => {
     const KEY_SIGN_LIST = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
     const reg = new RegExp('[' + KEY_SIGN_LIST + ']+')
@@ -33,5 +33,4 @@ describe('OTHER MODULE', () => {
 
     expect(/^#([0-9a-f]{2}){3}$/.test(result)).toBe(true)
   })
-  
 })

@@ -1,4 +1,5 @@
 import clone from '../src/object/clone'
+import extend from '../src/object/extend'
 import cloneDeep from '../src/object/cloneDeep'
 import getValue from '../src/object/getValue'
 import omit from '../src/object/omit'
@@ -15,20 +16,20 @@ describe('OBJECT MODULE', () => {
 
   test('get value', () => {
     expect(getValue(target, 'info.author')).toEqual('impeiran')
-    
-    expect(getValue(target, 'func.1')).toEqual('cloneDeep') 
 
-    expect(getValue(target, 'func.3', 'test')).toEqual('test') 
+    expect(getValue(target, 'func.1')).toEqual('cloneDeep')
 
-    expect(getValue(target, 'check')).toBeUndefined() 
+    expect(getValue(target, 'func.3', 'test')).toEqual('test')
 
-    expect(getValue(null, 'check')).toBeUndefined() 
-    expect(getValue()).toBeUndefined() 
+    expect(getValue(target, 'check')).toBeUndefined()
+
+    expect(getValue(null, 'check')).toBeUndefined()
+    expect(getValue()).toBeUndefined()
   })
 
   test('omit', () => {
     expect(omit(null)).toBeNull()
-    expect(omit({a: 1}, target)).toEqual({
+    expect(omit({ a: 1 }, target)).toEqual({
       a: 1
     })
 
@@ -66,6 +67,10 @@ describe('OBJECT MODULE', () => {
 
     expect(clone('123')).toEqual('123')
     expect(clone(null)).toBeNull()
+  })
+
+  test('object extend', () => {
+    expect(extend()).toEqual({})
   })
 
   test('object deep clone', () => {
