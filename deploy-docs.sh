@@ -6,6 +6,7 @@ npm run docs:build
 
 cd docs/.vuepress/dist
 
+git init
 git add -A
 git commit -m 'Build: docs'
 git push -f https://github.com/impeiran/ure.git master:gh-pages
