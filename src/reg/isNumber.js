@@ -3,7 +3,7 @@
  * @param {Any} target
  */
 const isNumber = (target) => {
-  return /^\d+(\.\d)?$/.test(target)
+  return /^\d+(\.\d+)?$/.test(target)
 }
 
 export default isNumber
