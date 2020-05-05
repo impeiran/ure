@@ -54,7 +54,7 @@ Get the user agent
 
 **arguments**
 
-`tag(string)`: lower case
+`tag(string)` lower case
 
 **example**
 
@@ -194,9 +194,9 @@ Creates a throttled function that only invokes `fn` at most once per every `dela
 
 **arguments**
 
-`fn(Function)`: the function to throttle
+`fn(Function)` the function to throttle
 
-`[delay=0](Number)`: the number of milliseconds to throttle invocations.
+`[delay=0](Number)` the number of milliseconds to throttle invocations.
 
 **example**
 
@@ -214,9 +214,9 @@ Creates a debounced function that delays invoking `fn` until after `delay` milli
 
 **arguments**
 
-`fn(Function)`: the function to debounce
+`fn(Function)` the function to debounce
 
-`[delay=0](Number)`: the number of milliseconds to debounce invocations.
+`[delay=0](Number)` the number of milliseconds to debounce invocations.
 
 **example**
 
@@ -329,7 +329,7 @@ parse the query string into query object
 
 **arguments**
 
-`query(String)`: query string
+`query(String)` query string
 
 **example**
 
@@ -390,7 +390,7 @@ parse the cookie string to key-value object
 
 **arguments**
 
-`str(String)`: cookie string
+`str(String)` cookie string
 
 **example**
 
