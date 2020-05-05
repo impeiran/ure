@@ -1,8 +1,9 @@
 {
   "name": "ure",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A lib with some utility functions used frequently",
-  "main": "dist/ure.js",
+  "main": "index.js",
+  "module": "es/index.js",
   "scripts": {
     "dev": "rollup -w -c ./build/rollup.config.js",
     "build": "npm run build:umd && npm run build:cjs && npm run build:esm",

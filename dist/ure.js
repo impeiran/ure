@@ -1,7 +1,7 @@
 
 /**
  * ure
- * version: 0.1.0
+ * version: 0.2.0
  * author: impeiran,
  * homepage: https://github.com/impeiran/ure#readme
  */
@@ -15,20 +15,20 @@
   /**
    * ua信息
    */
-  var ua$1 = function ua(sign) {
+  var ua = function ua(sign) {
     return navigator ? sign ? navigator.userAgent.toLocaleLowerCase() : navigator.userAgent : null;
   };
 
   var isAndroid = function isAndroid() {
-    return /android/.test(ua$1('i'));
+    return /android/.test(ua('i'));
   };
 
   var isDingTalk = function isDingTalk() {
-    return /dingtalk/.test(ua$1('i'));
+    return /dingtalk/.test(ua('i'));
   };
 
   var isEdge = function isEdge() {
-    return /Edge/.test(ua$1());
+    return /Edge/.test(ua());
   };
 
   var isIE = function isIE() {
@@ -36,11 +36,11 @@
   };
 
   var isIOS = function isIOS() {
-    return /ios|iphone|ipad|ipod/.test(ua$1('i'));
+    return /ios|iphone|ipad|ipod/.test(ua('i'));
   };
 
   var isIpad = function isIpad() {
-    return /ipad/.test(ua$1('i'));
+    return /ipad/.test(ua('i'));
   };
 
   var isMobile = function isMobile() {
@@ -52,11 +52,11 @@
   };
 
   var isQQ = function isQQ() {
-    return /qq\//.test(ua$1('i'));
+    return /qq\//.test(ua('i'));
   };
 
   var isWeixin = function isWeixin() {
-    return /MicroMessenger/i.test(ua$1());
+    return /MicroMessenger/i.test(ua());
   };
 
   /**
@@ -447,7 +447,7 @@
    * @param {Any} target
    */
   var isNumber = function isNumber(target) {
-    return /^\d+(\.\d)?$/.test(target);
+    return /^\d+(\.\d+)?$/.test(target);
   };
 
   var isTel = function isTel(val) {
@@ -472,7 +472,7 @@
    * @param {String} target
    */
   var isImage = function isImage(target) {
-    return /\.(jpeg|jpg|png|bmp|gif|wbmp|svg)$/i.test(target);
+    return /\.(jpeg|jpg|png|bmp|gif|wbmp|svg)(\?[\s\S]+)?$/i.test(target);
   };
 
   function handleSearch(target) {
@@ -640,7 +640,7 @@
   };
 
   var index = {
-    ua: ua$1,
+    ua: ua,
     isMobile: isMobile,
     isPC: isPC,
     isIE: isIE,
