@@ -15,10 +15,10 @@ cnpm install ure --save
 yarn add ure
 ```
 
-**Or you can download the js file**: [github](https://github.com/impeiran/ure/blob/master/dist)
+**Or you can download the js file**:
 
-- ure.js [click here](https://github.com/impeiran/ure/tree/master/dist/ure.js)
-- ure.min.js [click here](https://github.com/impeiran/ure/tree/master/dist/ure.min.js)
+- ure.js [click here](https://github.com/impeiran/ure/raw/master/dist/ure.js)
+- ure.min.js [click here](https://github.com/impeiran/ure/raw/master/dist/ure.min.js)
 
 ## **Usage**
 
