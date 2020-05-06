@@ -1,6 +1,6 @@
 {
   "name": "ure",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A lib with some utility functions used frequently",
   "main": "index.js",
   "module": "es/index.js",
