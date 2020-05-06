@@ -2,5 +2,7 @@
 /coverage
 /module
 
+/docs/.vuepress/dist
+
 yarn-error.log
 package-lock.json
