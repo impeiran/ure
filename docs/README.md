@@ -448,7 +448,7 @@ check if the string is a email address
 
 ```javascript
 ure.isEmail('jafv@.c') // false
-ure.isEmail('micheal@163.com' // true
+ure.isEmail('micheal@163.com') // true
 ```
 
 ### isPhone
@@ -464,12 +464,12 @@ check if the string is a phone format string
 **example**
 
 ```javascript
-isPhone('020-86601234') // true
-isPhone('020-866012342') // false
-isPhone('13247479090') // true
-isPhone('+86 13247479090') // true
-isPhone('86 13247479090')) // true
-isPhone('86 1324740') // false
+ure.isPhone('020-86601234') // true
+ure.isPhone('020-866012342') // false
+ure.isPhone('13247479090') // true
+ure.isPhone('+86 13247479090') // true
+ure.isPhone('86 13247479090') // true
+ure.isPhone('86 1324740') // false
 ```
 
 ## nature
