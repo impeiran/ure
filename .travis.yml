@@ -7,6 +7,15 @@ branches:
   only:
     - master
 cache: yarn
+before_deploy:
+  - sh pre-publish.sh
+  - cd modules
+deploy:
+  provider: npm
+  email: "$NPM_EMAIL"
+  api_key: "$NPM_TOKEN"
+  on:
+    tags: true
 install:
   - yarn
 script:
