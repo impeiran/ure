@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 12
+notifications:
+  email: false
+branches:
+  only:
+    - master
+install:
+  - yarn
+script:
+  - npm run lint
+  - npm run test
+after_success:
+  - npm run build
+  - sudo sh deploy-dosc.sh

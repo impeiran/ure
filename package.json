@@ -14,7 +14,8 @@
     "lint:fix": "eslint ./src --ext .js --fix",
     "test": "jest --config jest.config.js",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "sh deploy-dosc.sh"
   },
   "repository": {
     "type": "git",
