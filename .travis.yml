@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - 12
+notifications:
+  email: false
+branches:
+  only:
+    - master
+cache: yarn
+before_deploy:
+  - sh pre-publish.sh
+  - cd modules
+deploy:
+  provider: npm
+  email: "$NPM_EMAIL"
+  api_key: "$NPM_TOKEN"
+  on:
+    tags: true
+install:
+  - yarn
+script:
+  - npm run lint
+  - npm run test
+after_success:
+  - npm run build
+  - sudo sh deploy-dosc.sh
