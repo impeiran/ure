@@ -1,5 +1,6 @@
 import _handleSearch from '../src/url/_handleSearch'
 import parseUrl from '../src/url/parseUrl'
+import stringifyQuery from '../src/url/stringifyQuery'
 import parseQuery from '../src/url/parseQuery'
 import getUrlParam from '../src/url/getUrlParam'
 import setUrlParam from '../src/url/setUrlParam'
@@ -35,6 +36,17 @@ describe('URL_MODEULE', () => {
       pathname: '/',
       origin: 'https://localhost'
     })
+  })
+
+  test('stringify query', () => {
+    const query = {
+      time: 666,
+      date: '2019',
+      name: undefined,
+      test: ''
+    }
+    expect(stringifyQuery(query)).toEqual('time=666&date=2019&test=')
+    expect(stringifyQuery([])).toEqual('')
   })
 
   test('parse query', () => {
