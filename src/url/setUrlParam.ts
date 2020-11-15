@@ -5,7 +5,7 @@
  * @param {String} val
  * From https://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
  */
-const setUrlParam = (url, key, val) => {
+const setUrlParam = (url?: string, key?: string, val: string = '') => {
   if (!url || !key) return url
 
   const re = new RegExp('([?|&])' + key + '=.*?(&|#|$)', 'i')

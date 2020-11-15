@@ -1,3 +1,4 @@
+import typescript from 'rollup-plugin-typescript2'
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 
@@ -13,11 +14,12 @@ const banner = `
 `;
 
 const plugins = [
-  babel()
+  babel(),
+  typescript()
 ];
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: [
     {
       name,

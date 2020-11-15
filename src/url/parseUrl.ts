@@ -1,16 +1,17 @@
+import { Query } from './types'
 import handleSearch from './_handleSearch'
 
 /**
  * 转换url
  * @param {String} url
  */
-const parseUrl = (url) => {
+const parseUrl = (url: string | undefined) => {
   if (typeof url !== 'string') return null
 
-  const a = document.createElement('a')
+  const a:any = document.createElement('a')
   a.href = url
 
-  const result = [
+  const result: any = [
     'protocol',
     'host',
     'origin',
@@ -21,7 +22,7 @@ const parseUrl = (url) => {
   ].reduce((ret, k) => {
     ret[k] = a[k]
     return ret
-  }, {})
+  }, {} as Query)
 
   result.query = result.search ? handleSearch(result.search.slice(1)) : {}
 

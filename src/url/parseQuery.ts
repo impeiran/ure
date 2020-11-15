@@ -1,10 +1,11 @@
 import handleSearch from './_handleSearch'
+import { Query } from './types'
 
 /**
  * 转换query对象
  * @param {String} target
  */
-const parseQuery = (target) => {
+function parseQuery (target: string): Query {
   if (typeof target !== 'string') return {}
 
   const searchLoc = target.indexOf('?')

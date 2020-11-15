@@ -20,13 +20,6 @@ import isEmpty from './nature/isEmpty'
 import inRange from './number/inRange'
 import midNumber from './number/midNumber'
 
-import extend from './object/extend'
-import clone from './object/clone'
-import cloneDeep from './object/cloneDeep'
-import getValue from './object/getValue'
-import omit from './object/omit'
-import isEqual from './object/isEqual'
-
 import chunk from './array/chunk'
 import remove from './array/remove'
 import removeIndex from './array/removeIndex'
@@ -73,12 +66,6 @@ export default {
   inRange,
   midNumber,
 
-  extend,
-  clone,
-  cloneDeep,
-  getValue,
-  omit,
-  isEqual,
   chunk,
   remove,
   removeIndex,
