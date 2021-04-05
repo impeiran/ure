@@ -2,7 +2,7 @@
  * string 返回type
  * @param {Any} target
  */
-const getType = (target: any): string => {
+const getType = (target: unknown): string => {
   return Object.prototype.toString
     .call(target)
     .slice(8, -1)

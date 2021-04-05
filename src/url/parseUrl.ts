@@ -5,7 +5,7 @@ import handleSearch from './_handleSearch'
  * 转换url
  * @param {String} url
  */
-const parseUrl = (url: string | undefined) => {
+const parseUrl = (url: string) => {
   if (typeof url !== 'string') return null
 
   const a:any = document.createElement('a')

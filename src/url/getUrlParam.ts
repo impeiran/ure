@@ -5,8 +5,8 @@
  * From https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
  */
 const getUrlParam = (
-  url: string | undefined,
-  key: string | undefined
+  url: string,
+  key: string
 ): string | null => {
   if (!url || !key) return null;
 

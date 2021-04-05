@@ -7,7 +7,7 @@ import { PROD_MODULE_ES } from './_constants'
 
 
 export default {
-  input: glob.sync('src/*/[^_]*.js').concat(['src/index.ts']),
+  input: glob.sync('src/*/[^_]*.ts').concat(['src/index.ts']),
   plugins: [typescript({
     allowNonTsExtensions: true
   }), babel()],
