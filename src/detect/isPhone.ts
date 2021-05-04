@@ -1,5 +1,5 @@
-const isTel = (val: string) => /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(val)
-const isMob = (val: string) => /^((\+(86)|(86))\s)?(1)\d{10}/.test(val)
+const isTel = (val: string): boolean => /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(val)
+const isMob = (val: string): boolean => /^((\+(86)|(86))\s)?(1)\d{10}/.test(val)
 
 /**
  * 校验电话号码

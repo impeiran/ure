@@ -1,3 +1,3 @@
 declare interface Window {
-  ActiveXObject?: any
+  ActiveXObject?: unknown
 }

@@ -1,4 +1,4 @@
-interface CookieOption {
+type CookieOption = {
   expires?: Date | string | number
   path?: string
   domain?: string
@@ -57,18 +57,18 @@ const Cookie = {
 
     const { expires, path, domain, secure } = option
 
-    if (expires != null) {
+    if (expires !== null && expires !== undefined) {
       const expireString =
         expires instanceof Date ? expires.toUTCString() : expires
       cookieString += `; expires=${expireString}`
     }
-    if (path != null) {
+    if (path !== null && path !== undefined) {
       cookieString += `; path=${path}`
     }
-    if (domain != null) {
+    if (domain !== null && domain !== undefined) {
       cookieString += `; domain=${domain}`
     }
-    if (secure != null) {
+    if (secure !== null && secure !== undefined) {
       cookieString += '; secure'
     }
 

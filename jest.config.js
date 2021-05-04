@@ -6,13 +6,5 @@ module.exports = {
   testURL: 'http://localhost/test?name=ure&type=util#part_one',
   testPathIgnorePatterns: ['node_modules', '.cache'],
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$'],
-  moduleFileExtensions: ['js', 'json']
-  // coverageThreshold: {
-  //   global: {
-  //     statements: 80,
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80
-  //   }
-  // }
+  moduleFileExtensions: ['js', 'json', 'ts']
 }

@@ -1,91 +1,33 @@
 import ua from './browser/ua'
-import isAndroid from './browser/isAndroid'
-import isDingTalk from './browser/isDingTalk'
-import isEdge from './browser/isEdge'
-import isIE from './browser/isIE'
-import isIOS from './browser/isIOS'
-import isIpad from './browser/isIpad'
-import isMobile from './browser/isMobile'
-import isPC from './browser/isPC'
-import isQQ from './browser/isQQ'
-import isWeixin from './browser/isWeixin'
+import Cookie from './browser/cookie'
 
-import debounce from './browser/debounce'
-import throttle from './browser/throttle'
+import getTypeOf from './enhanced/getTypeOf'
+import JSONParse from './enhanced/JSONParse'
 
-import isTypeof from './nature/isTypeof'
-import getType from './nature/getType'
-import isEmpty from './nature/isEmpty'
+import isDateValid from './detect/isDateValid'
+import isPlainObject from './detect/isPlainObject'
+import isEmail from './detect/isEmail'
+import isNumber from './detect/isNumber'
+import isPhone from './detect/isPhone'
+import isImage from './detect/isImage'
 
-import inRange from './number/inRange'
-import midNumber from './number/midNumber'
+import delay from './other/delay'
+import noop from './other/noop'
 
-import chunk from './array/chunk'
-import remove from './array/remove'
-import removeIndex from './array/removeIndex'
-import shuffle from './array/shuffle'
-
-import random from './other/random'
-import randomColor from './other/randomColor'
-import randomKey from './other/randomKey'
-
-import isEmail from './reg/isEmail'
-import isNumber from './reg/isNumber'
-import isPhone from './reg/isPhone'
-import isImage from './reg/isImage'
-
-import parseUrl from './url/parseUrl'
-import parseQuery from './url/parseQuery'
-import getUrlParam from './url/getUrlParam'
-import setUrlParam from './url/setUrlParam'
-
-import getCookie from './cookie/getCookie'
-import setCookie from './cookie/setCookie'
-import parseCookie from './cookie/parseCookie'
-
-export default {
+export {
   ua,
-  isMobile,
-  isPC,
-  isIE,
-  isEdge,
-  isIOS,
-  isIpad,
-  isAndroid,
-  isWeixin,
-  isQQ,
-  isDingTalk,
+  Cookie,
 
-  debounce,
-  throttle,
+  getTypeOf,
+  JSONParse,
 
-  getType,
-  isTypeof,
-  isEmpty,
-
-  inRange,
-  midNumber,
-
-  chunk,
-  remove,
-  removeIndex,
-  shuffle,
-
-  random,
-  randomColor,
-  randomKey,
-
+  isDateValid,
+  isPlainObject,
   isEmail,
   isNumber,
   isPhone,
   isImage,
 
-  getCookie,
-  setCookie,
-  parseCookie,
-
-  parseUrl,
-  parseQuery,
-  getUrlParam,
-  setUrlParam
+  delay,
+  noop,
 }
