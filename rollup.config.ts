@@ -15,18 +15,15 @@ export default [
     output: [
       {
         file: packageJson.module,
-        sourcemap: true,
         format: 'esm'
       },
       {
         file: packageJson.main,
-        sourcemap: true,
         format: 'cjs'
       },
       {
         name: packageJson.name,
         file: packageJson.unpackaged,
-        sourcemap: true,
         format: 'umd',
       },
     ]

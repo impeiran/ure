@@ -6,7 +6,6 @@
     "moduleResolution": "Node",
     "outDir": "dist",
     "baseUrl": "./",
-    "sourceMap": true,
     "declaration": false,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
