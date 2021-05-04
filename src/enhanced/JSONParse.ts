@@ -1,6 +1,6 @@
 /**
  * safe json parse
- * @param {Parameters<typeof JSON.parse>} args
+ * @param args
  * @returns {[Error | null, any]}
  */
 const JSONParse = (
@@ -11,8 +11,8 @@ const JSONParse = (
 
   try {
     value = JSON.parse.apply(null, args)
-  } catch (error) {
-    error = error
+  } catch (err) {
+    error = err
   }
 
   return [error, value]
