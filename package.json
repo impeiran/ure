@@ -1,6 +1,6 @@
 {
   "name": "ure",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lib with some utility functions used frequently",
   "main": "dist/ure.cjs.js",
   "module": "dist/ure.esm.js",
