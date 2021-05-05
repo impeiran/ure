@@ -3,6 +3,7 @@ import Cookie from './browser/cookie'
 
 import getTypeOf from './enhanced/getTypeOf'
 import JSONParse from './enhanced/JSONParse'
+import cacheAsync from './enhanced/cacheAsync'
 
 import isDateValid from './detect/isDateValid'
 import isPlainObject from './detect/isPlainObject'
@@ -20,6 +21,7 @@ export {
 
   getTypeOf,
   JSONParse,
+  cacheAsync,
 
   isDateValid,
   isPlainObject,

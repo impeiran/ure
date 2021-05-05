@@ -7,7 +7,7 @@ type CookieOption = {
 
 const Cookie = {
   parse (): Record<string, string> {
-    const cookie = document.cookie
+    const { cookie } = document
     return cookie
       .split(';')
       .map((item) => item.split('='))
@@ -27,7 +27,7 @@ const Cookie = {
   get (key?: string): string {
     if (key === null || key === undefined) return ''
 
-    const cookieName = encodeURIComponent(key) + '='
+    const cookieName = `${encodeURIComponent(key)  }=`
     const cookieStart = document.cookie.indexOf(cookieName)
 
     let result = ''

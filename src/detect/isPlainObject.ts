@@ -3,10 +3,8 @@
  * @param target 
  * @returns boolean
  */
-const isPlainObject = (target: unknown): boolean => {
-  return Object.prototype
+const isPlainObject = (target: unknown): boolean => Object.prototype
     .toString
     .call(target) === '[object, Object]'
-}
 
 export default isPlainObject
