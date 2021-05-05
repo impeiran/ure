@@ -1,6 +1,6 @@
-import getTypeOf from '../src/nature/getTypeOf'
+import getTypeOf from '../getTypeOf'
 
-describe('LANG MODULE', () => {
+describe('getTypeof', () => {
   test('get type', () => {
     expect(getTypeOf(undefined)).toBe('undefined')
     expect(getTypeOf(null)).toBe('null')
