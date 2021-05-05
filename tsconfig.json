@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "lib": ["esnext", "DOM"],
+    "target": "es5",
+    "moduleResolution": "Node",
+    "outDir": "dist",
+    "baseUrl": "./",
+    "declaration": false,
+    "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "resolveJsonModule": true
+  },
+  "include": ["./src/*"],
+  "exclude": ["node_modules"]
+}

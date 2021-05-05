@@ -7,9 +7,6 @@ branches:
   only:
     - master
 cache: yarn
-before_deploy:
-  - sh pre-publish.sh
-  - cd modules
 deploy:
   provider: npm
   email: "$NPM_EMAIL"
@@ -19,8 +16,8 @@ deploy:
 install:
   - yarn
 script:
-  - npm run lint
-  - npm run test
+  - yarn lint
+  - yarn test
 after_success:
-  - npm run build
+  - yarn build
   - sudo sh deploy-dosc.sh

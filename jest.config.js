@@ -1,18 +1,17 @@
 module.exports = {
+  preset: 'ts-jest',
   verbose: false,
-  modulePaths: ['<rootDir>/src/'],
-  collectCoverage: true,
-  testMatch: ['<rootDir>/test/*.js'],
+  roots: [
+    '<rootDir>/src',
+  ],
+  testEnvironment: 'jest-environment-jsdom-fourteen',
+  testMatch: [
+    '**/__tests__/**/*.spec.ts',
+    '**/__tests__/**/*.spec.js',
+    '**/test/**/*.ts',
+    '**/test/**/*.js',
+  ],
   testURL: 'http://localhost/test?name=ure&type=util#part_one',
   testPathIgnorePatterns: ['node_modules', '.cache'],
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$'],
-  moduleFileExtensions: ['js', 'json']
-  // coverageThreshold: {
-  //   global: {
-  //     statements: 80,
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80
-  //   }
-  // }
-}
+  moduleFileExtensions: ['ts', 'js']
+};
