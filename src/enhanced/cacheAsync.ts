@@ -13,19 +13,19 @@ const DEFAULT_EXPIRE = Number.MAX_SAFE_INTEGER
 
 /**
  * async cache
- * @param fn 
- * @param cacheOptions
+ * @param fn The function needs to be cached, return a promise
+ * @param cacheOptions cache options
  * @param cacheOptions.key cache key
  * @param cacheOptions.expire ms number
  * @returns {Function} cached fn
  */
-const cacheAsync = <K, T extends (...args : any) => Promise<K>>(
+const cacheAsync = <T extends (...args : any) => Promise<unknown>>(
   fn: T,
   cacheOptions: CacheOptions = {}
-): (...args: Parameters<T>) => Promise<K> => {
+): T => {
   const { key, expire = DEFAULT_EXPIRE } = cacheOptions
 
-  return function cacheAsyncAction (...args: Parameters<T>): Promise<K> {
+  return function cacheAsyncAction (...args) {
     const cacheKey = typeof key === 'function'
       ? key(...args)
       : key === null || key === undefined ? fn : key
@@ -43,9 +43,7 @@ const cacheAsync = <K, T extends (...args : any) => Promise<K>>(
         ? result
         : Promise.resolve(result)
       
-      /**
-       * record the fullfilled handler
-       */
+      // record the fullfilled handler
       result
         .then(res => {
           const firstTimeCache = CACHE_MAP.get(cacheKey)
@@ -62,9 +60,7 @@ const cacheAsync = <K, T extends (...args : any) => Promise<K>>(
           return Promise.reject(error)
         })
 
-      /**
-       * set pending cache
-       */
+      // set pending promise
       CACHE_MAP.set(cacheKey, {
         resolved: false,
         expire: +new Date() + expire,
@@ -76,19 +72,19 @@ const cacheAsync = <K, T extends (...args : any) => Promise<K>>(
 
     /**
      * first time to invoke fn
-     * cache the pending promise
+     * set new cache info
      */
     if (!cache) return setCache()
 
     return cache.expire > +new Date()
       ? cache.resolved 
         // hit the cache
-        ? Promise.resolve(cache.value as K) 
+        ? Promise.resolve(cache.value) 
         // hit the pending promise
-        : cache.value as Promise<K>
+        : cache.value
       // cache expired
       : setCache()
-  }
+  } as T
 }
 
 export default cacheAsync
