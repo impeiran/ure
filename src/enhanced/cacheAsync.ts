@@ -6,7 +6,7 @@ export type CacheOptions = {
 const CACHE_MAP = new Map<unknown, {
   resolved: boolean
   expire: number,
-  value: Promise<unknown> | unknown
+  value: Promise<unknown> | unknown | null
 }>()
 
 const DEFAULT_EXPIRE = Number.MAX_SAFE_INTEGER
@@ -19,16 +19,24 @@ const DEFAULT_EXPIRE = Number.MAX_SAFE_INTEGER
  * @param cacheOptions.expire ms number
  * @returns {Function} cached fn
  */
-const cacheAsync = <T extends (...args : any) => Promise<unknown>>(
-  fn: T,
+const cacheAsync = <T extends unknown, K extends (...args: any[]) => Promise<T>>(
+  fn: K,
   cacheOptions: CacheOptions = {}
-): T => {
+): K => {
   const { key, expire = DEFAULT_EXPIRE } = cacheOptions
 
-  return function cacheAsyncAction (...args) {
+  return function cacheAsyncAction(
+    this: unknown,
+    ...args: Parameters<K>
+  ): Promise<T> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this
+
     const cacheKey = typeof key === 'function'
       ? key(...args)
-      : key === null || key === undefined ? fn : key
+      : key === null || key === undefined
+        ? fn
+        : key
     
     const cache = CACHE_MAP.get(cacheKey)
 
@@ -37,18 +45,26 @@ const cacheAsync = <T extends (...args : any) => Promise<unknown>>(
      * @returns Promise<K>
      */
     const setCache = () => {
-      let result = fn.apply(this, args)
+      let result = fn.apply(context, args)
 
       result = result instanceof Promise 
         ? result
         : Promise.resolve(result)
       
-      // record the fullfilled handler
+      // set pending promise
+      CACHE_MAP.set(cacheKey, {
+        resolved: false,
+        expire: +new Date() + expire,
+        value: result
+      })
+      
+      // record the fulfilled promise result
       result
         .then(res => {
           const firstTimeCache = CACHE_MAP.get(cacheKey)
           CACHE_MAP.set(cacheKey, {
             ...firstTimeCache,
+            expire: +new Date() + expire,
             resolved: true,
             value: res
           })
@@ -56,16 +72,9 @@ const cacheAsync = <T extends (...args : any) => Promise<unknown>>(
         })
         .catch(error => {
           // remove the cache while the promise reject
-          CACHE_MAP.set(cacheKey, null)
+          CACHE_MAP.delete(cacheKey)
           return Promise.reject(error)
         })
-
-      // set pending promise
-      CACHE_MAP.set(cacheKey, {
-        resolved: false,
-        expire: +new Date() + expire,
-        value: result
-      })
 
       return result
     }
@@ -84,7 +93,7 @@ const cacheAsync = <T extends (...args : any) => Promise<unknown>>(
         : cache.value
       // cache expired
       : setCache()
-  } as T
+  } as K
 }
 
 export default cacheAsync
