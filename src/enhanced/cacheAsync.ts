@@ -96,4 +96,6 @@ const cacheAsync = <T extends unknown, K extends (...args: any[]) => Promise<T>>
   } as K
 }
 
+cacheAsync.CACHE_MAP = CACHE_MAP
+
 export default cacheAsync
