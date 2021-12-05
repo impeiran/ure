@@ -1,5 +1,5 @@
-export type CacheOptions = {
-  key?: string | number | symbol | ((...args: any) => any),
+export type CacheOptions<K extends (...args: any[]) => any> = {
+  key?: string | number | symbol | ((...args: Parameters<K>) => any),
   expire?: number
 }
 
@@ -21,7 +21,7 @@ const DEFAULT_EXPIRE = Number.MAX_SAFE_INTEGER
  */
 const cacheAsync = <T extends unknown, K extends (...args: any[]) => Promise<T>>(
   fn: K,
-  cacheOptions: CacheOptions = {}
+  cacheOptions: CacheOptions<K> = {}
 ): K => {
   const { key, expire = DEFAULT_EXPIRE } = cacheOptions
 
