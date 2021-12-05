@@ -22,6 +22,7 @@
   "rules": {
     "no-param-reassign": "off",
     "no-nested-ternary": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "@typescript-eslint/no-explicit-any": "off"
   }
 }

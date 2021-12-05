@@ -1,5 +1,6 @@
 import ua from './browser/ua'
 import Cookie from './browser/cookie'
+import openByTagLink from './browser/openByTagLink'
 
 import getTypeOf from './enhanced/getTypeOf'
 import JSONParse from './enhanced/JSONParse'
@@ -18,6 +19,7 @@ import noop from './other/noop'
 export {
   ua,
   Cookie,
+  openByTagLink,
 
   getTypeOf,
   JSONParse,
