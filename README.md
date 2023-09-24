@@ -13,7 +13,7 @@ ure is a lib with some utility functions used frequently. Most of these function
 npm install ure --save
 
 # use cnpm
-cnpm install ure --save
+pnpm add ure
 
 # use yarn
 yarn add ure
