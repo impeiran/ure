@@ -16,6 +16,8 @@ import isImage from './detect/isImage'
 import delay from './other/delay'
 import noop from './other/noop'
 
+export * from './async/createPollTask'
+
 export {
   ua,
   Cookie,
